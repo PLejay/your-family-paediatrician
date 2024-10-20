@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  service: CollectionEntry<"services">;
+};
+
+const { title, img_path, img_alt } = Astro.props.service.data;
+---
+
+<div></div>

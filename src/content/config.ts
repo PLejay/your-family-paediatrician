@@ -4,7 +4,6 @@ export const collections = {
   testimonials: defineCollection({
     type: "content",
     schema: z.object({
-      quote: z.string(),
       type: z.enum(["Webinars", "Family Paediatric Services"]),
     }),
   }),
