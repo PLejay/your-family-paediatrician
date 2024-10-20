@@ -1,12 +1,14 @@
 ---
-interface Props {
-  href: string;
-}
+type Props = {
+  href?: string;
+  size?: "small" | "default";
+};
 
-const { href } = Astro.props;
+const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
+  Astro.props;
 ---
 
-<a href={href}><slot /></a>
+<a href={href} class:list={[{ small: size === "small" }]}><slot /></a>
 
 <style>
   a {
@@ -24,6 +26,10 @@ const { href } = Astro.props;
     box-shadow: var(--shadow-md);
     background-color: var(--accent-dark);
     white-space: nowrap;
+  }
+
+  a .small {
+    padding: 0.5rem 1.5rem;
   }
 
   @media (min-width: 20em) {
@@ -51,6 +57,11 @@ const { href } = Astro.props;
     a {
       padding: 1.125rem 2.5rem;
       font-size: var(--text-xl);
+    }
+
+    a.small {
+      padding: 0.75rem 2rem;
+      font-size: var(--text-lg);
     }
   }
 </style>
