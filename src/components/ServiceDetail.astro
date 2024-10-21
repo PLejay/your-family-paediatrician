@@ -8,4 +8,8 @@ type Props = {
 const { title, img_path, img_alt } = Astro.props.service.data;
 ---
 
-<div></div>
+<div>
+  <img alt={img_alt} src={img_path} width="480" height="620" />
+  <h3>{title}</h3>
+  <p>{Astro.props.service.body}</p>
+</div>
