@@ -50,24 +50,15 @@ const services = await getCollection("services");
           <h3>Services</h3>
         </header>
 
-        <div class="services">
-          <Grid>
-            <!-- {
-              projects.map(project => (
-                <li>
-                  <PortfolioPreview project={project} />
-                </li>
-              ))
-            } -->
-            {
-              services.map(service => (
-                <li>
-                  <ServiceDetail service={service} />
-                </li>
-              ))
-            }
-          </Grid>
-        </div>
+        <Grid>
+          {
+            services.map(service => (
+              <li>
+                <ServiceDetail service={service} />
+              </li>
+            ))
+          }
+        </Grid>
       </section>
     </main>
 
@@ -109,14 +100,14 @@ const services = await getCollection("services");
   /* ====================================================== */
 
   .section {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
   }
 
   .section-header {
     justify-self: center;
-    text-align: center;
-    max-width: 50ch;
+    align-self: center;
     font-size: var(--text-md);
     color: var(--gray-300);
   }
@@ -127,7 +118,6 @@ const services = await getCollection("services");
 
   @media (min-width: 50em) {
     .section {
-      grid-template-columns: repeat(4, 1fr);
       gap: 5rem;
     }
 

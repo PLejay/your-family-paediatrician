@@ -1,5 +1,5 @@
 ---
-title: Infant Basic Life Support Workshop
+title: Infant Basic Life Support workshop
 img_path: /assets/infant-basic-life-support-check-breathing.jpg
 img_alt: Dr Shiri Lejay demonstrating how to check the breathing of an infant on a training dummy
 ---

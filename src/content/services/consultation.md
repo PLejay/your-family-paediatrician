@@ -1,6 +1,6 @@
 ---
 title: Consultation (virtual or home visit)
-img_path: /assets/portrait-bricks-cropped.jpg
+img_path: /assets/portrait-bricks-red.jpg
 img_alt: Dr Shiri Lejay wearing a red shirt and smiling at the camera
 ---
 
