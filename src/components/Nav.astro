@@ -5,7 +5,7 @@ import Icon from "./Icon.astro";
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
   { label: "Home", href: "/" },
-  { label: "Work", href: "/work/" },
+  { label: "Testimonials", href: "/testimonials/" },
   { label: "About me", href: "/about/" },
 ];
 ---
@@ -13,7 +13,6 @@ const textLinks: { label: string; href: string }[] = [
 <nav>
   <div class="menu-header">
     <a href="/" class="site-title">
-      <!-- TODO: add logo -->
       <img src="/assets/new-logo-dark-cropped.svg" alt="Site Logo" />
       Your Family Paediatrician
     </a>
@@ -269,7 +268,7 @@ const textLinks: { label: string; href: string }[] = [
     .link:hover,
     .link:focus {
       color: var(--gray-100);
-      background-color: var(--accent-subtle-overlay);
+      background-color: var(--accent-light);
     }
 
     .link.active {

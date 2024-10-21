@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Grid from "../components/Grid.astro";
+import Hero from "../components/Hero.astro";
+import Testimonial from "../components/Testimonial.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const testimonials = await getCollection("testimonials");
+---
+
+<BaseLayout title="Testimonials" description="Testimonials from parents">
+  <div class="wrapper stack gap-20">
+    <main>
+      <Hero title="Testimonials" tagline="What parents say" />
+
+      <section>
+        <Grid>
+          {
+            testimonials.map(testimonial => (
+              <li>
+                <Testimonial testimonial={testimonial} />
+              </li>
+            ))
+          }
+        </Grid>
+      </section>
+    </main>
+  </div></BaseLayout
+>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+</style>

@@ -1,0 +1,7 @@
+/* Having to style here because of astro css scoping */
+/* https: //github.com/withastro/docs/issues/3485 */
+
+article p {
+  font-style: italic;
+  margin-bottom: 1em;
+}

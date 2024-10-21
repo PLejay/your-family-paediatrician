@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import "../styles/testimonials.css";
+import Icon from "./Icon.astro";
+
+type Props = {
+  testimonial: CollectionEntry<"testimonials">;
+};
+
+const { type } = Astro.props.testimonial.data;
+const { Content } = await Astro.props.testimonial.render();
+---
+
+<div class="testimonial">
+  <Icon icon="quote" size="3em" color="#a3acc8" />
+  <h5 class="type">{type}</h5>
+  <article>
+    <Content />
+  </article>
+</div>
+
+<style>
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    height: 100%;
+  }
+
+  h5 {
+    font-size: var(--text-lg);
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+
+  article {
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 50em) {
+    article {
+      text-align: left;
+    }
+  }
+</style>
