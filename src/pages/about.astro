@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import ContactCTA from "../components/ContactCTA.astro";
 import Hero from "../components/Hero.astro";
-import { Image } from "astro:assets";
 ---
 
 <BaseLayout title="About | Dr Shiri Lejay" description="About Dr Shiri Lejay">
@@ -12,29 +11,24 @@ import { Image } from "astro:assets";
       <Hero title="About" tagline="Hi, I am Dr Shiri Lejay" />
 
       <section>
-        <h2 class="section-title">Background</h2>
-        <div class="content">
-          <p>
-            I am a mother and a paediatrician with 15 years of experience in the
-            NHS. I believe that every parent deserves to be able to access
-            advice and support from a paediatrician. The peer support in this
-            country is wonderful, but unlike many other countries, it can be
-            extremely difficult to find expert answers to your health questions
-            and concerns. The most challenging period for this is often the
-            first few months of life for new parents - when everything is new
-            and you just want someone to be able to discuss concerns with, and
-            who can shed some light on them.
-          </p>
-          <p>
-            I believe that every parent knows far more than they think and I am
-            here to help you to learn to feel empowered, and to trust your gut
-            when it comes to your child’s health.
-          </p>
-        </div>
+        <p>
+          I am a mother and a paediatrician with 15 years of experience in the
+          NHS. I believe that every parent deserves to be able to access advice
+          and support from a paediatrician. The peer support in this country is
+          wonderful, but unlike many other countries, it can be extremely
+          difficult to find expert answers to your health questions and
+          concerns. The most challenging period for this is often the first few
+          months of life for new parents - when everything is new and you just
+          want someone to be able to discuss concerns with, and who can shed
+          some light on them.
+        </p>
+        <p>
+          I believe that every parent knows far more than they think and I am
+          here to help you to learn to feel empowered, and to trust your gut
+          when it comes to your child’s health.
+        </p>
       </section>
-      <Image
-        width="1553"
-        height="873"
+      <img
         src="/assets/portrait-bricks-red.jpg"
         alt="Dr Shiri Lejay wearing a red shirt and stethoscope, smiling at the camera"
         loading="eager"
@@ -49,56 +43,35 @@ import { Image } from "astro:assets";
   .about {
     display: flex;
     flex-direction: column;
-    gap: 3.5rem;
-  }
-
-  img {
-    margin-top: 1.5rem;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-md);
+    gap: 2rem;
   }
 
   section {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 1rem;
     color: var(--gray-200);
+    text-wrap: pretty;
+    text-align: center;
   }
 
-  .section-title {
-    grid-column-start: 1;
-    font-size: var(--text-xl);
-    color: var(--gray-0);
-  }
-
-  .content {
-    grid-column: 2 / 4;
-  }
-
-  .content :global(a) {
-    text-decoration: 1px solid underline transparent;
-    text-underline-offset: 0.25em;
-    transition: text-decoration-color var(--theme-transition);
-  }
-
-  .content :global(a:hover),
-  .content :global(a:focus) {
-    text-decoration-color: currentColor;
+  img {
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-md);
+    width: 100%;
   }
 
   @media (min-width: 50em) {
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 60% 1fr;
-    }
-
-    .about > :global(:first-child) {
-      grid-column-start: 2;
-    }
-
     section {
       display: contents;
       font-size: var(--text-lg);
+    }
+
+    img {
+      height: 600px;
+      object-fit: cover;
+      object-position: 50% 20%;
     }
   }
 </style>
