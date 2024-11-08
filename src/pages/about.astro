@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import ContactCTA from "../components/ContactCTA.astro";
 import Hero from "../components/Hero.astro";
+import { Image } from "astro:assets";
 ---
 
 <BaseLayout title="About | Dr Shiri Lejay" description="About Dr Shiri Lejay">
@@ -31,11 +32,12 @@ import Hero from "../components/Hero.astro";
           </p>
         </div>
       </section>
-      <img
+      <Image
         width="1553"
         height="873"
         src="/assets/portrait-bricks-red.jpg"
         alt="Dr Shiri Lejay wearing a red shirt and stethoscope, smiling at the camera"
+        loading="eager"
       />
     </main>
 

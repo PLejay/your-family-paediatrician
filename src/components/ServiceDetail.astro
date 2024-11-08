@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
@@ -10,7 +11,7 @@ const { title, img_path, img_alt } = Astro.props.service.data;
 
 <div class="service-detail">
   <div class="image-container">
-    <img alt={img_alt} src={img_path} width="480" height="620" />
+    <Image src={img_path} alt={img_alt} width="480" height="620" />
   </div>
   <h4>{title}</h4>
   <p>{Astro.props.service.body}</p>

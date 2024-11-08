@@ -10,6 +10,7 @@ import Hero from "../components/Hero.astro";
 import ServiceDetail from "../components/ServiceDetail.astro";
 
 // Page section components
+import { Image } from "astro:assets";
 import ContactCTA from "../components/ContactCTA.astro";
 
 const services = await getCollection("services");
@@ -25,11 +26,12 @@ const services = await getCollection("services");
           align="start"
         />
 
-        <img
+        <Image
           alt="Dr Shiri Lejay standing in front of a brick wall wearing her scrubs and smiling"
           width="480"
           height="620"
           src="/assets/portrait-bricks-cropped.jpg"
+          loading="eager"
         />
       </header>
       <p>

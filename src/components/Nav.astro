@@ -1,6 +1,8 @@
 ---
 import CallToAction from "./CallToAction.astro";
 import Icon from "./Icon.astro";
+import logoDark from "../../public/assets/new-logo-dark-cropped.svg";
+import { Image } from "astro:assets";
 
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
@@ -13,7 +15,7 @@ const textLinks: { label: string; href: string }[] = [
 <nav>
   <div class="menu-header">
     <a href="/" class="site-title">
-      <img src="/assets/new-logo-dark-cropped.svg" alt="Site Logo" />
+      <Image src={logoDark} alt="Site Logo" loading="eager"/>
       Your Family Paediatrician
     </a>
     <menu-button>
