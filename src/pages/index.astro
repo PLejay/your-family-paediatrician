@@ -34,16 +34,22 @@ const services = await getCollection("services");
           loading="eager"
         />
       </header>
-      <p>
-        As a Paediatrician and a mother, I understand the depth of concerns
-        about your child's health. You might feel helpless or overwhelmed, and
-        most of all, confused about conflicting information and advice. ​ I can
-        help you to make sense of the information overload, and ease your
-        worries with simple, easy to follow advice. My mission is simple: To
-        empower you to trust your instincts and to feel confident in making
-        decisions about your child's health, and to guide and support you along
-        the way.
-      </p>
+      <section class="intro-text">
+        <p>
+          As a Paediatrician and a mother, I understand the depth of concerns
+          about your child's health. You might feel helpless or overwhelmed, and
+          most of all, confused about conflicting information.
+        </p>
+        <p>
+          I can help you to make sense of the information overload, and ease
+          your worries with simple, easy to follow advice.
+        </p>
+        <p>
+          My mission is simple: To empower you to trust your instincts and to
+          feel confident in making decisions about your child's health, and to
+          guide and support you along the way.
+        </p>
+      </section>
     </div>
 
     <main class="wrapper stack gap-20 lg:gap-48">
@@ -84,6 +90,16 @@ const services = await getCollection("services");
     box-shadow: var(--shadow-md);
   }
 
+  .intro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: var(--gray-200);
+    text-align: center;
+    font-size: var(--text-md);
+    text-wrap: pretty;
+  }
+
   @media (min-width: 50em) {
     .hero {
       display: grid;
@@ -96,6 +112,10 @@ const services = await getCollection("services");
       aspect-ratio: 3 / 4;
       border-radius: 4.5rem;
       object-fit: cover;
+    }
+
+    .intro-text {
+      font-size: var(--text-lg);
     }
   }
 
