@@ -1,15 +1,11 @@
 ---
-import CallToAction from "./CallToAction.astro";
-import Icon from "./Icon.astro";
+import SubscribeModal from "./SubscribeModal.astro";
 ---
 
 <aside>
   <section>
-    <h2>Looking for advice on your child's health?</h2>
-    <CallToAction>
-      Send me a message
-      <Icon icon="paper-plane-tilt" size="1.2em" />
-    </CallToAction>
+    <h2>Want to get notified for upcoming events?</h2>
+    <SubscribeModal />
   </section>
 </aside>
 
@@ -22,6 +18,7 @@ import Icon from "./Icon.astro";
     box-shadow: var(--shadow-sm);
     display: flex;
     justify-content: center;
+    margin-top: 5rem;
   }
 
   section {

@@ -11,7 +11,6 @@ import ServiceDetail from "../components/ServiceDetail.astro";
 
 // Page section components
 import { Image } from "astro:assets";
-import ContactCTA from "../components/ContactCTA.astro";
 
 const services = await getCollection("services");
 ---
@@ -60,7 +59,7 @@ const services = await getCollection("services");
 
         <Grid>
           {
-            services.map(service => (
+            services.map((service) => (
               <li>
                 <ServiceDetail service={service} />
               </li>
@@ -69,8 +68,6 @@ const services = await getCollection("services");
         </Grid>
       </section>
     </main>
-
-    <ContactCTA />
   </div>
 </BaseLayout>
 

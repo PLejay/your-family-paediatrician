@@ -8,10 +8,12 @@ const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
   Astro.props;
 ---
 
-<a href={href} class:list={[{ small: size === "small" }]}><slot /></a>
+<a href={href} class:list={[{ small: size === "small", cta: true }]}>
+  <slot />
+</a>
 
-<style>
-  a {
+<style is:global>
+  .cta {
     position: relative;
     display: flex;
     place-content: center;
@@ -26,40 +28,32 @@ const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
     box-shadow: var(--shadow-md);
     background-color: var(--accent-dark);
     white-space: nowrap;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-brand);
+    transition: background-color var(--theme-transition);
+    &:hover {
+      background-color: hsl(from var(--accent-dark) h s calc(l + 15));
+    }
   }
 
-  a .small {
+  .cta.small {
     padding: 0.5rem 1.5rem;
   }
 
   @media (min-width: 20em) {
-    a {
+    .cta {
       font-size: var(--text-lg);
     }
   }
 
-  /* Overlay for hover effects. */
-  a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    transition: background-color var(--theme-transition);
-    mix-blend-mode: overlay;
-  }
-
-  a:focus::after,
-  a:hover::after {
-    background-color: hsla(var(--gray-999-basis), 0.3);
-  }
-
   @media (min-width: 50em) {
-    a {
+    .cta {
       padding: 1.125rem 2.5rem;
       font-size: var(--text-xl);
     }
 
-    a.small {
+    .cta.small {
       padding: 0.75rem 2rem;
       font-size: var(--text-lg);
     }

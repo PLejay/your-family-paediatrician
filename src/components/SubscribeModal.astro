@@ -1,0 +1,29 @@
+---
+import Modal from "./Modal.astro";
+import SubscribeForm from "./SubscribeForm.astro";
+import Icon from "./ui/Icon.astro";
+
+type Props = {
+  id?: string;
+};
+
+const { id = "subscribe-modal" } = Astro.props;
+---
+
+<Modal id={id} title="Join the mailing list">
+  <SubscribeForm />
+</Modal>
+
+<div class="cta-button-container">
+  <button class="cta" data-modal-open={id}>
+    Join the mailing list
+    <Icon icon="envelope-simple-open" size="1.2em" /></button
+  >
+</div>
+
+<style>
+  .cta-button-container {
+    display: flex;
+    justify-content: center;
+  }
+</style>

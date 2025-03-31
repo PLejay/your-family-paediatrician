@@ -1,42 +1,37 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-import ContactCTA from "../components/ContactCTA.astro";
 import Hero from "../components/Hero.astro";
 ---
 
 <BaseLayout title="About | Dr Shiri Lejay" description="About Dr Shiri Lejay">
-  <div class="stack gap-20">
-    <main class="wrapper about">
-      <Hero title="About me" tagline="Hi, I am Dr Shiri Lejay" />
+  <main class="wrapper about">
+    <Hero title="About me" tagline="Hi, I am Dr Shiri Lejay" />
 
-      <section>
-        <p>
-          I am a mother and a paediatrician with 15 years of experience in the
-          NHS. I believe that every parent deserves to be able to access advice
-          and support from a paediatrician. The peer support in this country is
-          wonderful, but unlike many other countries, it can be extremely
-          difficult to find expert answers to your health questions and
-          concerns. The most challenging period for this is often the first few
-          months of life for new parents - when everything is new and you just
-          want someone to be able to discuss concerns with, and who can shed
-          some light on them.
-        </p>
-        <p>
-          I believe that every parent knows far more than they think and I am
-          here to help you to learn to feel empowered, and to trust your gut
-          when it comes to your child’s health.
-        </p>
-      </section>
-      <img
-        src="/assets/portrait-bricks-red.jpg"
-        alt="Dr Shiri Lejay wearing a red shirt and stethoscope, smiling at the camera"
-        loading="eager"
-      />
-    </main>
-
-    <ContactCTA />
-  </div>
+    <section>
+      <p>
+        I am a mother and a paediatrician with 15 years of experience in the
+        NHS. I believe that every parent deserves to be able to access advice
+        and support from a paediatrician. The peer support in this country is
+        wonderful, but unlike many other countries, it can be extremely
+        difficult to find expert answers to your health questions and concerns.
+        The most challenging period for this is often the first few months of
+        life for new parents - when everything is new and you just want someone
+        to be able to discuss concerns with, and who can shed some light on
+        them.
+      </p>
+      <p>
+        I believe that every parent knows far more than they think and I am here
+        to help you to learn to feel empowered, and to trust your gut when it
+        comes to your child’s health.
+      </p>
+    </section>
+    <img
+      src="/assets/portrait-bricks-red.jpg"
+      alt="Dr Shiri Lejay wearing a red shirt and stethoscope, smiling at the camera"
+      loading="eager"
+    />
+  </main>
 </BaseLayout>
 
 <style>

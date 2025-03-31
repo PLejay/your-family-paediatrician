@@ -1,0 +1,109 @@
+<div>
+  <p class="subscribe-form-subtitle">
+    Subscribe to my mailing list to get notified for upcoming events.
+  </p>
+  <form
+    action="https://yourfamilypaediatrician.us5.list-manage.com/subscribe/post?u=4b82629434f5e404e85d0c314&id=85d419a9bc&f_id=0004f5e1f0"
+    method="post"
+    name="subscribe-form"
+    class="subscribe-form"
+    target="_blank"
+  >
+    <div class="field-group">
+      <label for="EMAIL">Email Address <span class="asterisk">*</span></label>
+      <input
+        type="email"
+        name="EMAIL"
+        class="required email"
+        id="EMAIL"
+        required=""
+        value=""
+        autofocus
+      />
+    </div>
+    <div class="field-group">
+      <label for="FNAME">First Name </label>
+      <input type="text" name="FNAME" class="text" id="FNAME" value="" />
+    </div>
+    <div class="field-group">
+      <label for="LNAME">Last Name </label>
+      <input type="text" name="LNAME" class="text" id="LNAME" value="" />
+    </div>
+    <p class="indicates-required">
+      <span class="asterisk">*</span> indicates required
+    </p>
+    <input
+      type="submit"
+      name="subscribe"
+      id="mc-embedded-subscribe"
+      class="cta small"
+      value="Subscribe"
+    />
+  </form>
+</div>
+<script
+  type="text/javascript"
+  src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+<script type="text/javascript">
+  (function ($) {
+    window.fnames = new Array();
+    window.ftypes = new Array();
+    fnames[0] = "EMAIL";
+    ftypes[0] = "email";
+    fnames[1] = "FNAME";
+    ftypes[1] = "text";
+    fnames[2] = "LNAME";
+    ftypes[2] = "text";
+  })(jQuery);
+  var $mcj = jQuery.noConflict(true);
+</script>
+
+<style>
+  .subscribe-form-subtitle {
+    color: var(--gray-200);
+    font-size: var(--text-md);
+    margin-bottom: 1rem;
+    text-wrap: pretty;
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: min(25rem, 100%);
+    min-width: 20rem;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  input[type="email"],
+  input[type="text"] {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-700);
+    border-radius: 0.25rem;
+    font-size: var(--text-base);
+    width: 100%;
+  }
+
+  .indicates-required {
+    font-size: var(--text-sm);
+    color: var(--red-200);
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .asterisk {
+    color: var(--red-200);
+  }
+</style>
