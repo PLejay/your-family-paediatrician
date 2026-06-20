@@ -6,7 +6,7 @@ Built with Astro and Typescript. Deployed via Netlify
 
 ## Prerequisites
 
-Node.js 24 (pinned via `.nvmrc`). With [nvm](https://github.com/nvm-sh/nvm), run `nvm use` in the project root to switch to the correct version.
+Node 24
 
 ## 🧞 Commands
 
@@ -19,3 +19,11 @@ All commands are run from the root of the project, from a terminal:
 | `npm run build`           | Build your production site to `./dist/`          |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## Deployment
+
+Pushes to github auto-deploy to Netlify.
+
+The `main` branch is the development branch. All changes made there will be deployed to a preview server.
+
+To deploy to prod, merge `main` into `production`.
