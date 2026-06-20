@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { type CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 import CallToAction from "./ui/CallToAction.astro";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 const { service } = Astro.props;
 
 const { title, img_path, img_alt, price, price_per, cta } = service.data;
-const { Content } = await service.render();
+const { Content } = await render(service);
 ---
 
 <div class="service-detail">
