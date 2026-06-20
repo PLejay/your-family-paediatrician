@@ -13,34 +13,29 @@
   --gray-800: #e3e6ee;
   --gray-900: #f3f4f7;
   --gray-999-basis: 0, 0%, 100%;
-  --gray-999_40: hsl(var(--gray-999-basis) 0.4);
-  --gray-999: #ffffff;
-
+  --gray-999-40: hsl(var(--gray-999-basis) 0.4);
+  --gray-999: #fff;
   --red-200: #a00310;
   --red-400: #fc6471;
   --red-600: #fb2335;
-
   --yellow-regular: #e8c547;
-
   --bg-colour: #f4f4f9;
-
   --accent-light: #93e1d8;
   --accent-regular: #6ea9a2;
   --accent-dark: #4a716c;
   --accent-text-over: var(--gray-999);
-
   --link-color: var(--accent-regular);
 
   /* Shadows */
-  --shadow-sm: 0px 6px 3px rgba(9, 11, 17, 0.01),
-    0px 4px 2px rgba(9, 11, 17, 0.01), 0px 2px 2px rgba(9, 11, 17, 0.02),
-    0px 0px 1px rgba(9, 11, 17, 0.03);
-  --shadow-md: 0px 28px 11px rgba(9, 11, 17, 0.01),
-    0px 16px 10px rgba(9, 11, 17, 0.03), 0px 7px 7px rgba(9, 11, 17, 0.05),
-    0px 2px 4px rgba(9, 11, 17, 0.06);
-  --shadow-lg: 0px 62px 25px rgba(9, 11, 17, 0.01),
-    0px 35px 21px rgba(9, 11, 17, 0.05), 0px 16px 16px rgba(9, 11, 17, 0.1),
-    0px 4px 9px rgba(9, 11, 17, 0.12);
+  --shadow-sm: 0px 6px 3px rgb(9 11 17 / 1%),
+    0px 4px 2px rgb(9 11 17 / 1%), 0px 2px 2px rgb(9 11 17 / 2%),
+    0px 0px 1px rgb(9 11 17 / 3%);
+  --shadow-md: 0px 28px 11px rgb(9 11 17 / 1%),
+    0px 16px 10px rgb(9 11 17 / 3%), 0px 7px 7px rgb(9 11 17 / 5%),
+    0px 2px 4px rgb(9 11 17 / 6%);
+  --shadow-lg: 0px 62px 25px rgb(9 11 17 / 1%),
+    0px 35px 21px rgb(9 11 17 / 5%), 0px 16px 16px rgb(9 11 17 / 10%),
+    0px 4px 9px rgb(9 11 17 / 12%);
 
   /* Text Sizes */
   --text-sm: 0.875rem;
@@ -133,7 +128,7 @@ h5 {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border-width: 0;
 }
@@ -153,50 +148,64 @@ h5 {
 .gap-2 {
   gap: 0.5rem;
 }
+
 .gap-4 {
   gap: 1rem;
 }
+
 .gap-8 {
   gap: 2rem;
 }
+
 .gap-10 {
   gap: 2.5rem;
 }
+
 .gap-15 {
   gap: 3.75rem;
 }
+
 .gap-20 {
   gap: 5rem;
 }
+
 .gap-30 {
   gap: 7.5rem;
 }
+
 .gap-48 {
   gap: 12rem;
 }
 
-@media (min-width: 50em) {
+@media (width >= 50em) {
   .lg\:gap-2 {
     gap: 0.5rem;
   }
+
   .lg\:gap-4 {
     gap: 1rem;
   }
+
   .lg\:gap-8 {
     gap: 2rem;
   }
+
   .lg\:gap-10 {
     gap: 2.5rem;
   }
+
   .lg\:gap-15 {
     gap: 3.75rem;
   }
+
   .lg\:gap-20 {
     gap: 5rem;
   }
+
   .lg\:gap-30 {
     gap: 7.5rem;
   }
+
   .lg\:gap-48 {
     gap: 12rem;
   }

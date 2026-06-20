@@ -40,7 +40,7 @@ const { Content } = await render(service);
     box-shadow: var(--shadow-md);
     padding: 1rem;
     border-radius: 1rem;
-    background-color: var(--gray-999_40);
+    background-color: var(--gray-999-40);
     text-align: center;
     text-wrap: balance;
   }
@@ -104,7 +104,7 @@ const { Content } = await render(service);
     justify-self: flex-end;
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .service-detail {
       flex: 1;
       height: 100%;
@@ -121,6 +121,7 @@ const { Content } = await render(service);
       justify-content: center;
       align-items: center;
       min-height: calc(var(--text-2xl) * 2);
+
       h4 {
         font-size: var(--text-xl);
         line-height: var(--text-2xl);

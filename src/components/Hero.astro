@@ -35,7 +35,7 @@ const { align = "center", tagline, title } = Astro.props;
     color: var(--gray-0);
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .hero {
       font-size: var(--text-xl);
     }
@@ -44,13 +44,13 @@ const { align = "center", tagline, title } = Astro.props;
       text-align: start;
     }
 
+    .title {
+      font-size: var(--text-4xl);
+    }
+
     .start .title,
     .start .tagline {
       margin-inline: unset;
-    }
-
-    .title {
-      font-size: var(--text-4xl);
     }
   }
 </style>

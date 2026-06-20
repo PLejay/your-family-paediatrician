@@ -97,7 +97,7 @@ const services = await getCollection("services");
     text-wrap: pretty;
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .hero {
       display: grid;
       grid-template-columns: 6fr 4fr;
@@ -125,8 +125,7 @@ const services = await getCollection("services");
   }
 
   .section-header {
-    justify-self: center;
-    align-self: center;
+    place-self: center center;
     font-size: var(--text-md);
     color: var(--gray-300);
   }
@@ -135,7 +134,7 @@ const services = await getCollection("services");
     font-size: var(--text-2xl);
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .section {
       gap: 5rem;
     }
@@ -164,7 +163,7 @@ const services = await getCollection("services");
     box-shadow: var(--shadow-sm);
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .mention-card {
       border-radius: 1.5rem;
       height: 9.5rem;

@@ -32,6 +32,7 @@ const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
     border: none;
     font-family: var(--font-brand);
     transition: background-color var(--theme-transition);
+
     &:hover {
       background-color: hsl(from var(--accent-dark) h s calc(l + 15));
     }
@@ -41,13 +42,13 @@ const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
     padding: 0.5rem 1.5rem;
   }
 
-  @media (min-width: 20em) {
+  @media (width >= 20em) {
     .cta {
       font-size: var(--text-lg);
     }
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     .cta {
       padding: 1.125rem 2.5rem;
       font-size: var(--text-xl);

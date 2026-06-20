@@ -20,7 +20,7 @@ const currentYear = new Date().getFullYear();
     align-items: center;
     gap: 1rem;
     margin-top: auto;
-    padding: 3rem 2rem 3rem;
+    padding: 3rem 2rem;
     color: var(--gray-400);
     font-size: var(--text-sm);
   }
@@ -37,7 +37,7 @@ const currentYear = new Date().getFullYear();
     text-decoration-color: currentColor;
   }
 
-  @media (min-width: 50em) {
+  @media (width >= 50em) {
     footer {
       flex-direction: row;
       justify-content: space-between;
