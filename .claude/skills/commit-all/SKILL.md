@@ -10,9 +10,8 @@ Stage all files and commit them following the rules of the current repository.
 
 # Instructions
 
-- If you are on the `main` branch, first pull the latest version and create a branch. Do not commit directly to the main branch; **NEVER commit directly to the `production` branch**
+- Make sure you are on the latest version of the `main` branch. Do not create a separate branch unless instructed otherwise. **NEVER commit directly to the `production` branch**
 - Stage all files
 - Create a commit with the following:
   - descriptive title
   - body explaining the changes made
-
