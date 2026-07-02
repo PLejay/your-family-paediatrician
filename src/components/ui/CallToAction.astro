@@ -2,13 +2,24 @@
 type Props = {
   href?: string;
   size?: "small" | "default";
+  target?: string;
+  rel?: string;
 };
 
-const { href = "mailto:shiri@yourfamilypaediatrician.com", size = "default" } =
-  Astro.props;
+const {
+  href = "mailto:shiri@yourfamilypaediatrician.com",
+  size = "default",
+  target,
+  rel,
+} = Astro.props;
 ---
 
-<a href={href} class:list={[{ small: size === "small", cta: true }]}>
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  class:list={[{ small: size === "small", cta: true }]}
+>
   <slot />
 </a>
 

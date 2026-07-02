@@ -71,7 +71,11 @@ html {
 html,
 body {
   min-height: 100%;
-  overflow-x: hidden;
+
+  /* `clip` (not `hidden`) so neither element becomes a scroll container —
+     keeps the sticky header (see Nav.astro) working while still containing
+     horizontal overflow (e.g. the hero's decorative glow). */
+  overflow-x: clip;
 }
 
 body {
