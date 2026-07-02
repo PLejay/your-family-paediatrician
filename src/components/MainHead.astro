@@ -1,4 +1,6 @@
 ---
+import { Font, getImage } from "astro:assets";
+import portrait from "../assets/portrait-red-shirt-bookcase.jpg";
 import "../styles/global.css";
 
 interface Props {
@@ -10,18 +12,29 @@ const {
   title = "Your Family Paediatrician",
   description = "Dr Shiri Lejay, Consultant Paediatrician in London — private consultations, home visits and parent workshops. Clear, practical advice for calm, confident parenting.",
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({
+  src: portrait,
+  width: 1200,
+  height: 630,
+  fit: "cover",
+  format: "jpg",
+});
 ---
 
 <meta charset="UTF-8" />
 <meta name="description" property="og:description" content={description} />
-<meta name="viewport" content="width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-  rel="stylesheet"
-/>
+<Font cssVariable="--font-inter" preload />
+<Font cssVariable="--font-geologica" preload />

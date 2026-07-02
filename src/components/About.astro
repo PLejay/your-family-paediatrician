@@ -1,15 +1,18 @@
 ---
+import { Image } from "astro:assets";
+import portrait from "../assets/portrait-bricks-cropped.jpg";
+
 const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
 ---
 
 <section id="about" class="section">
   <div class="wrapper layout">
     <div class="portrait">
-      <img
-        src="/assets/portrait-bricks-cropped.jpg"
+      <Image
+        src={portrait}
         alt="Dr Shiri Lejay smiling in front of an exposed-brick wall"
-        width="1884"
-        height="1717"
+        widths={[400, 640, 800, 1200]}
+        sizes="(max-width: 50em) 100vw, 40vw"
         loading="lazy"
       />
     </div>
