@@ -1,172 +1,72 @@
 ---
-import { getCollection } from "astro:content";
-
-// Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Component Imports
-import Grid from "../components/Grid.astro";
-import Hero from "../components/Hero.astro";
-import ServiceDetail from "../components/ServiceDetail.astro";
-
-// Page section components
-import { Image } from "astro:assets";
-
-const services = await getCollection("services");
+// One-page scaffold. Each <section> below is an anchored placeholder that the
+// per-section issues flesh out — see agent-notes/03-page-structure.md.
+// Anchors consumed by the sticky nav (GH-22): #home #help #services
+// #workshops #about #reviews #contact.
 ---
 
 <BaseLayout>
-  <div class="stack gap-20 lg:gap-48">
-    <div class="wrapper stack gap-8 lg:gap-20">
-      <header class="hero">
-        <Hero
-          title="Hello, I am Dr Shiri Lejay"
-          tagline="Your Family Paediatrician"
-          align="start"
-        />
-
-        <Image
-          alt="Dr Shiri Lejay standing in front of a brick wall wearing her scrubs and smiling"
-          width="480"
-          height="620"
-          src="/assets/portrait-bricks-cropped.jpg"
-          loading="eager"
-        />
-      </header>
-      <section class="intro-text">
-        <p>
-          As a Paediatrician and a mother, I understand the depth of concerns
-          about your child's health. You might feel helpless or overwhelmed, and
-          most of all, confused about conflicting information.
-        </p>
-        <p>
-          I can help you to make sense of the information overload, and ease
-          your worries with simple, easy to follow advice.
-        </p>
-        <p>
-          My mission is simple: To empower you to trust your instincts and to
-          feel confident in making decisions about your child's health, and to
-          guide and support you along the way.
-        </p>
-      </section>
+  {/* Hero — GH-23 */}
+  <section id="home" class="section">
+    <div class="wrapper">
+      <h1>Hero</h1>
     </div>
+  </section>
 
-    <main class="wrapper stack gap-20 lg:gap-48">
-      <section class="section">
-        <header class="section-header stack gap-2 lg:gap-4">
-          <h3>Services</h3>
-        </header>
+  {/* How I can help — GH-24 */}
+  <section id="help" class="section">
+    <div class="wrapper">
+      <h2>How I can help</h2>
+    </div>
+  </section>
 
-        <Grid>
-          {
-            services.map((service) => (
-              <li>
-                <ServiceDetail service={service} />
-              </li>
-            ))
-          }
-        </Grid>
-      </section>
-    </main>
-  </div>
+  {/* Services + Fees & insurance — GH-25 / GH-26 */}
+  <section id="services" class="section">
+    <div class="wrapper">
+      <h2>Services</h2>
+    </div>
+  </section>
+
+  {/* Workshops & talks — GH-27 */}
+  <section id="workshops" class="section">
+    <div class="wrapper">
+      <h2>Workshops &amp; talks</h2>
+    </div>
+  </section>
+
+  {/* About — GH-28 */}
+  <section id="about" class="section">
+    <div class="wrapper">
+      <h2>About</h2>
+    </div>
+  </section>
+
+  {/* Reviews — GH-29 */}
+  <section id="reviews" class="section">
+    <div class="wrapper">
+      <h2>Reviews</h2>
+    </div>
+  </section>
+
+  {/* Helpful resources (no anchor) — GH-30 */}
+  <section class="section">
+    <div class="wrapper">
+      <h2>Helpful resources</h2>
+    </div>
+  </section>
+
+  {/* Final call-to-action — GH-31 */}
+  <section id="contact" class="section">
+    <div class="wrapper">
+      <h2>Get in touch</h2>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .hero img {
-    aspect-ratio: 5 / 4;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-md);
-  }
-
-  .intro-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    color: var(--gray-200);
-    text-align: center;
-    font-size: var(--text-md);
-    text-wrap: pretty;
-  }
-
-  @media (width >= 50em) {
-    .hero {
-      display: grid;
-      grid-template-columns: 6fr 4fr;
-      padding-inline: 2.5rem;
-      gap: 3.75rem;
-    }
-
-    .hero img {
-      aspect-ratio: 3 / 4;
-      border-radius: 4.5rem;
-      object-fit: cover;
-    }
-
-    .intro-text {
-      font-size: var(--text-lg);
-    }
-  }
-
-  /* ====================================================== */
-
   .section {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .section-header {
-    place-self: center center;
-    font-size: var(--text-md);
-    color: var(--gray-300);
-  }
-
-  .section-header h3 {
-    font-size: var(--text-2xl);
-  }
-
-  @media (width >= 50em) {
-    .section {
-      gap: 5rem;
-    }
-
-    .section-header {
-      grid-area: header;
-      font-size: var(--text-lg);
-    }
-
-    .section-header h3 {
-      font-size: var(--text-4xl);
-    }
-  }
-
-  /* ====================================================== */
-
-  .mention-card {
-    display: flex;
-    height: 7rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border: 1px solid var(--gray-800);
-    border-radius: 1.5rem;
-    color: var(--gray-300);
-    box-shadow: var(--shadow-sm);
-  }
-
-  @media (width >= 50em) {
-    .mention-card {
-      border-radius: 1.5rem;
-      height: 9.5rem;
-    }
+    padding-block: clamp(60px, 8vw, 110px);
   }
 </style>
