@@ -1,56 +1,158 @@
 ---
-interface Props {
-  title: string;
-  tagline?: string;
-  align?: "start" | "center";
-}
+import CallToAction from "./ui/CallToAction.astro";
+import Stars from "./ui/Stars.astro";
 
-const { align = "center", tagline, title } = Astro.props;
+const bookingUrl =
+  "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
 ---
 
-<div class:list={["hero stack gap-4", align]}>
-  <div class="stack gap-2">
-    <h1 class="title">{title}</h1>
-    {tagline && <p class="tagline">{tagline}</p>}
+<section id="home" class="hero">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrapper layout">
+    <div class="intro">
+      <p class="eyebrow">Hello, I'm Dr Shiri Lejay</p>
+      <h1>Your family paediatrician, for calm and confident parenting.</h1>
+      <p class="credentials">
+        Consultant Paediatrician · MB · MRCPCH · DTM&amp;H · LFHom (Med) ·
+        PGCert (Med Ed)
+      </p>
+      <p class="lede">
+        As a paediatrician and a mother, I understand how overwhelming it can
+        feel to make sense of your child's health — especially with so much
+        conflicting information. I'm here to help you cut through the noise
+        with clear, practical advice, so you can feel calm and confident about
+        what to do next.
+      </p>
+      <div class="cta-row">
+        <CallToAction href={bookingUrl} target="_blank" rel="noopener">
+          Book a consultation
+        </CallToAction>
+        <CallToAction variant="outline">Get in touch</CallToAction>
+      </div>
+      <div class="trust-row">
+        <span class="trust-item">
+          <Stars label="Rated 4.97 out of 5 on Doctify" /> 4.97 / 5 on Doctify
+        </span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Private appointments at Central Health London</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Home visits available</span>
+      </div>
+    </div>
+    <div class="portrait">
+      <img
+        src="/assets/portrait-red-shirt-bookcase.jpg"
+        alt="Dr Shiri Lejay smiling, wearing a red shirt in front of a bookcase"
+        width="3024"
+        height="4032"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
   </div>
-  <slot />
-</div>
+</section>
 
 <style>
   .hero {
-    font-size: var(--text-lg);
-    text-align: center;
+    position: relative;
+    padding-block: clamp(3rem, 7vw, 5.75rem) clamp(3.5rem, 8vw, 6.5rem);
   }
 
-  .title,
-  .tagline {
-    max-width: 37ch;
-    margin-inline: auto;
-    color: var(--accent-deep);
+  .glow {
+    position: absolute;
+    top: -120px;
+    right: -160px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      var(--aqua-tint),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .layout {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(2.25rem, 5vw, 4.5rem);
+  }
+
+  .intro {
+    flex: 1 1 440px;
+    min-width: 300px;
+  }
+
+  .eyebrow {
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 5.4vw, 3.875rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+  }
+
+  .credentials {
+    font-size: 0.8438rem;
     font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-faint);
+    margin-bottom: 1.375rem;
   }
 
-  .title {
-    font-size: var(--text-3xl);
-    color: var(--gray-0);
+  .lede {
+    max-width: 30em;
+    font-size: clamp(1rem, 1.4vw, 1.1563rem);
+    line-height: 1.72;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
   }
 
-  @media (width >= 50em) {
-    .hero {
-      font-size: var(--text-xl);
-    }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    margin-bottom: 1.625rem;
+  }
 
-    .start {
-      text-align: start;
-    }
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.125rem;
+    font-size: 0.9063rem;
+    font-weight: 500;
+    color: #5b6a66;
+  }
 
-    .title {
-      font-size: var(--text-4xl);
-    }
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+  }
 
-    .start .title,
-    .start .tagline {
-      margin-inline: unset;
-    }
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #bcc7c3;
+  }
+
+  .portrait {
+    flex: 1 1 360px;
+    min-width: 280px;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
   }
 </style>

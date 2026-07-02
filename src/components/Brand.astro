@@ -1,0 +1,33 @@
+---
+type Props = {
+  size?: number;
+};
+
+const { size = 36 } = Astro.props;
+---
+
+<a href="/#home" class="brand">
+  <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="15.5" cy="22" r="11" fill="var(--accent-regular)"></circle>
+    <circle cx="26" cy="16.5" r="7.5" fill="var(--accent-light)"></circle>
+    <circle cx="26" cy="16.5" r="2.6" fill="#fff"></circle>
+  </svg>
+  <span class="wordmark">Your Family Paediatrician</span>
+</a>
+
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .wordmark {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+  }
+</style>

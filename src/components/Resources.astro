@@ -1,0 +1,101 @@
+---
+import Grid from "./Grid.astro";
+import SectionHeader from "./SectionHeader.astro";
+
+const blogUrl =
+  "https://www.centralhealthlondon.com/news-and-articles/categories/paediatrics";
+const instagramUrl = "https://www.instagram.com/your_family_paediatrician/";
+---
+
+<section class="section">
+  <div class="wrapper">
+    <SectionHeader eyebrow="Trusted information" title="Helpful resources" />
+    <Grid minCol="270px">
+      <li>
+        <article class="card emergency">
+          <h3>In an emergency</h3>
+          <p>
+            Call <strong>999</strong>, or <strong>NHS 111</strong> for urgent
+            advice. For urgent but non-emergency care, contact your GP or local
+            urgent care centre.
+          </p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <h3>Evidence-based articles</h3>
+          <p>
+            Practical, evidence-based paediatric reading from Central Health
+            London.
+          </p>
+          <a href={blogUrl} target="_blank" rel="noopener" class="card-link">
+            Read the blog →
+          </a>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <h3>Follow along <span class="soon">(coming soon)</span></h3>
+          <p>
+            Short, practical videos to help you feel confident about your
+            child's health.
+          </p>
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener"
+            class="card-link"
+          >
+            @your_family_paediatrician →
+          </a>
+        </article>
+      </li>
+    </Grid>
+  </div>
+</section>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 3vw, 1.875rem);
+    background-color: var(--gray-999);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+  }
+
+  .card.emergency {
+    border-color: #f0d6d4;
+    border-left: 4px solid var(--red-400);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .soon {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #8a9893;
+  }
+
+  p {
+    flex: 1;
+    font-size: 0.9688rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  p strong {
+    color: var(--text);
+  }
+
+  .card-link {
+    margin-top: 1rem;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--accent-deep);
+    text-decoration: none;
+  }
+</style>

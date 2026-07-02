@@ -1,0 +1,109 @@
+---
+const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
+---
+
+<section id="about" class="section">
+  <div class="wrapper layout">
+    <div class="portrait">
+      <img
+        src="/assets/portrait-bricks-cropped.jpg"
+        alt="Dr Shiri Lejay smiling in front of an exposed-brick wall"
+        width="1884"
+        height="1717"
+        loading="lazy"
+      />
+    </div>
+    <div class="bio">
+      <p class="eyebrow">About me</p>
+      <h2>Dr Shiri Lejay</h2>
+      <p class="body-copy">
+        As both a paediatrician and a mother, I understand how overwhelming it
+        can feel to make sense of your child's health — particularly with so
+        much conflicting information. I help parents cut through that noise
+        with clear, practical advice and a calm, reassuring approach.
+      </p>
+      <p class="body-copy">
+        I'm a Consultant Paediatrician with 18 years of NHS experience, working
+        at Central Health London and Demelza Children's Hospice. I support
+        families across all areas of general paediatrics, with a particular
+        focus on the early months of life — feeding, growth, sleep and
+        development — and offer appointments in clinic, remotely, or at home.
+      </p>
+      <ul class="badges">
+        {badges.map((badge) => <li>{badge}</li>)}
+      </ul>
+      <p class="closing">Trusted by families across London.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(2.25rem, 5vw, 4.5rem);
+  }
+
+  .portrait {
+    flex: 1 1 340px;
+    min-width: 280px;
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .bio {
+    flex: 1 1 420px;
+    min-width: 300px;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.875rem;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.625rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.375rem;
+  }
+
+  .body-copy {
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    line-height: 1.74;
+    color: var(--text-muted);
+    margin-bottom: 1.125rem;
+  }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5625rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.375rem 0 1.375rem;
+  }
+
+  .badges li {
+    padding: 0.5rem 0.875rem;
+    background-color: var(--gray-999);
+    border: 1px solid #e4ebe9;
+    border-radius: 8px;
+    font-size: 0.8438rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #3a4a46;
+  }
+
+  .closing {
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--accent-deep);
+  }
+</style>

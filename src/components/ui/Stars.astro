@@ -1,0 +1,17 @@
+---
+type Props = {
+  label?: string;
+};
+
+const { label = "Rated 5 out of 5" } = Astro.props;
+---
+
+<span class="stars" role="img" aria-label={label}>★★★★★</span>
+
+<style>
+  .stars {
+    color: var(--star-gold);
+    font-size: 0.9375rem;
+    letter-spacing: 1px;
+  }
+</style>

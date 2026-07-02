@@ -1,0 +1,144 @@
+---
+const fees = [
+  { service: "Initial consultation · 45 min", price: "£350" },
+  { service: "Home visit · 45 min", price: "£500" },
+  { service: "Follow-up appointment · 30 min", price: "£250" },
+  { service: "Results / brief follow-up · 15 min", price: "£150" },
+  {
+    service: "Newborn postnatal package · 6 appointments",
+    price: "On request",
+  },
+];
+
+const insurers = ["Healix", "Aviva", "WPA", "Vitality"];
+
+const feesUrl = "https://www.centralhealthlondon.com/fees";
+---
+
+<div class="fees-panel">
+  <div class="fees">
+    <h3>Fees</h3>
+    <dl>
+      {
+        fees.map(({ service, price }) => (
+          <div class="fee-row">
+            <dt>{service}</dt>
+            <dd>{price}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="note">
+      Postnatal package excludes vaccine costs.
+      <a href={feesUrl} target="_blank" rel="noopener">
+        See full fees at Central Health →
+      </a>
+    </p>
+  </div>
+  <div class="insurance">
+    <h3>Insurance</h3>
+    <p class="welcome">I welcome self-paying patients and am recognised by:</p>
+    <ul class="insurers">
+      {insurers.map((insurer) => <li>{insurer}</li>)}
+    </ul>
+    <p class="confirm">
+      Get in touch to discuss your options or confirm your cover.
+    </p>
+  </div>
+</div>
+
+<style>
+  .fees-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    margin-top: 1.5rem;
+    padding: clamp(1.75rem, 3.5vw, 2.75rem);
+    background-color: var(--accent-deep);
+    border-radius: var(--radius);
+    color: var(--gray-999);
+  }
+
+  h3 {
+    font-size: 1.625rem;
+    color: var(--gray-999);
+    margin-bottom: 1.25rem;
+  }
+
+  .fees {
+    flex: 1 1 360px;
+    min-width: 280px;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  .fee-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.8125rem;
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
+    font-size: 0.9688rem;
+  }
+
+  .fee-row:last-child {
+    border-bottom: none;
+  }
+
+  dt,
+  dd {
+    margin: 0;
+  }
+
+  dd {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .note {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: rgb(255 255 255 / 70%);
+  }
+
+  .note a {
+    color: var(--accent-light);
+  }
+
+  .insurance {
+    flex: 1 1 240px;
+    min-width: 230px;
+  }
+
+  .welcome {
+    font-size: 0.9688rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 86%);
+    margin-bottom: 1rem;
+  }
+
+  .insurers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5625rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.125rem;
+  }
+
+  .insurers li {
+    padding: 0.5rem 1rem;
+    background-color: rgb(255 255 255 / 13%);
+    border-radius: 999rem;
+    font-size: 0.9063rem;
+    font-weight: 600;
+  }
+
+  .confirm {
+    font-size: 0.9063rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 78%);
+  }
+</style>

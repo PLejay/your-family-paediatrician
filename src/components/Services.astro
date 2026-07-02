@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import FeesPanel from "./FeesPanel.astro";
+import Grid from "./Grid.astro";
+import SectionHeader from "./SectionHeader.astro";
+import ServiceDetail from "./ServiceDetail.astro";
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section id="services" class="section">
+  <div class="wrapper">
+    <SectionHeader eyebrow="Working together" title="Services" />
+    <Grid minCol="270px">
+      {
+        services.map((service) => (
+          <li>
+            <ServiceDetail service={service} />
+          </li>
+        ))
+      }
+    </Grid>
+    <FeesPanel />
+  </div>
+</section>

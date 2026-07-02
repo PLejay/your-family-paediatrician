@@ -1,0 +1,53 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import Pill from "./ui/Pill.astro";
+
+const concerns = [
+  "Health checks & reassurance",
+  "Feeding — breast, bottle & weaning",
+  "Sleep & unsettled babies",
+  "Reflux & colic",
+  "Fevers, infections & when to worry",
+  "Rashes & skin concerns",
+  "Growth & development",
+  "Behaviour & emotional wellbeing",
+];
+---
+
+<section id="help" class="section alt">
+  <div class="wrapper">
+    <SectionHeader
+      eyebrow="Support for every stage"
+      title="How I can help"
+      intro="Whether you have a specific worry or simply want reassurance that everything is on track, I support families across all areas of general paediatrics."
+    />
+    <ul class="concerns">
+      {
+        concerns.map((concern) => (
+          <li>
+            <Pill>{concern}</Pill>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="closing">…or simply when something just doesn't feel right.</p>
+  </div>
+</section>
+
+<style>
+  .concerns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .closing {
+    margin-top: 1.875rem;
+    font-style: italic;
+    font-size: clamp(1.125rem, 2vw, 1.4375rem);
+    color: var(--accent-deep);
+  }
+</style>

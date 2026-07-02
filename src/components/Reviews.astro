@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import Grid from "./Grid.astro";
+import Testimonial from "./Testimonial.astro";
+import CallToAction from "./ui/CallToAction.astro";
+
+const reviews = (
+  await getCollection("testimonials", ({ data }) => data.type === "parents")
+).sort((a, b) => a.data.order - b.data.order);
+
+const doctifyUrl = "https://www.doctify.com/uk/specialist/shiri-lejay";
+---
+
+<section id="reviews" class="section alt">
+  <div class="wrapper">
+    <div class="header">
+      <p class="eyebrow">
+        <span class="star" aria-hidden="true">★</span> Rated 4.97 / 5 on Doctify
+      </p>
+      <h2>What parents say</h2>
+    </div>
+    <Grid>
+      {
+        reviews.map((review) => (
+          <li>
+            <Testimonial testimonial={review} />
+          </li>
+        ))
+      }
+    </Grid>
+    <div class="cta-row">
+      <CallToAction
+        variant="outline"
+        size="small"
+        href={doctifyUrl}
+        target="_blank"
+        rel="noopener"
+      >
+        Read reviews on Doctify →
+      </CallToAction>
+    </div>
+  </div>
+</section>
+
+<style>
+  .header {
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin-bottom: 0.875rem;
+  }
+
+  .star {
+    color: var(--star-gold);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 4vw, 2.625rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.25rem;
+  }
+</style>

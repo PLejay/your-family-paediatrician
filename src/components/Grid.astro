@@ -1,27 +1,28 @@
 ---
+type Props = {
+  minCol?: string;
+};
 
+const { minCol = "250px" } = Astro.props;
 ---
 
-<ul class="grid">
+<ul class="grid" style={`--min-col: ${minCol}`}>
   <slot />
 </ul>
 
 <style>
   .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min-col), 100%), 1fr));
+    gap: 1.25rem;
+    width: 100%;
     list-style: none;
     padding: 0;
-    width: 100%;
+    margin: 0;
   }
 
-  @media (width >= 50em) {
-    .grid {
-      display: grid;
-      grid-auto-rows: 1fr;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 4rem;
-    }
+  /* Stretch each card to fill its cell so rows stay equal height. */
+  .grid > :global(li) {
+    display: grid;
   }
 </style>

@@ -2,6 +2,7 @@
 type Props = {
   href?: string;
   size?: "small" | "default";
+  variant?: "primary" | "outline" | "white" | "ghost";
   target?: string;
   rel?: string;
 };
@@ -9,6 +10,7 @@ type Props = {
 const {
   href = "mailto:shiri@yourfamilypaediatrician.com",
   size = "default",
+  variant = "primary",
   target,
   rel,
 } = Astro.props;
@@ -18,56 +20,80 @@ const {
   href={href}
   target={target}
   rel={rel}
-  class:list={[{ small: size === "small", cta: true }]}
+  class:list={["cta", variant, { small: size === "small" }]}
 >
   <slot />
 </a>
 
 <style is:global>
   .cta {
-    position: relative;
-    display: flex;
-    place-content: center;
-    text-align: center;
-    padding: 0.56em 2em;
-    gap: 0.8em;
-    color: var(--accent-text-over);
-    text-decoration: none;
-    line-height: 1.1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 1rem 1.75rem;
     border-radius: 999rem;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    background-color: var(--accent-deep);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
-    border: none;
-    font-family: var(--font-brand);
-    transition: background-color var(--theme-transition);
 
-    &:hover {
-      background-color: hsl(from var(--accent-deep) h s calc(l + 15));
-    }
+    /* Hover feedback is a shadow lift only — no translateY jump. */
+    transition:
+      box-shadow var(--theme-transition),
+      background-color var(--theme-transition);
   }
 
   .cta.small {
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.375rem;
+    font-size: 0.9375rem;
   }
 
-  @media (width >= 20em) {
-    .cta {
-      font-size: var(--text-lg);
-    }
+  .cta.primary {
+    background-color: var(--accent-deep);
+    color: var(--accent-text-over);
+    box-shadow: 0 8px 20px rgb(31 58 52 / 16%);
   }
 
-  @media (width >= 50em) {
-    .cta {
-      padding: 1.125rem 2.5rem;
-      font-size: var(--text-xl);
-    }
+  .cta.primary:hover,
+  .cta.primary:focus-visible {
+    box-shadow: 0 14px 30px rgb(31 58 52 / 28%);
+  }
 
-    .cta.small {
-      padding: 0.75rem 2rem;
-      font-size: var(--text-lg);
-    }
+  .cta.outline {
+    background-color: var(--gray-999);
+    color: var(--accent-deep);
+    border: 1.5px solid var(--accent-regular);
+  }
+
+  .cta.outline:hover,
+  .cta.outline:focus-visible {
+    background-color: var(--aqua-tint);
+    box-shadow: 0 10px 22px rgb(31 58 52 / 14%);
+  }
+
+  .cta.white {
+    background-color: var(--gray-999);
+    color: var(--accent-deep);
+  }
+
+  .cta.white:hover,
+  .cta.white:focus-visible {
+    box-shadow: 0 12px 26px rgb(0 0 0 / 22%);
+  }
+
+  .cta.ghost {
+    background-color: transparent;
+    color: var(--gray-999);
+    border: 1.5px solid rgb(255 255 255 / 55%);
+  }
+
+  .cta.ghost:hover,
+  .cta.ghost:focus-visible {
+    background-color: rgb(255 255 255 / 16%);
   }
 </style>

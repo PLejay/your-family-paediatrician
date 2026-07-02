@@ -1,4 +1,5 @@
 ---
+import Brand from "./Brand.astro";
 import CallToAction from "./ui/CallToAction.astro";
 
 const bookingUrl =
@@ -18,14 +19,7 @@ const navLinks: { label: string; href: string }[] = [
 
 <header class="site-header">
   <div class="wrapper nav-bar">
-    <a href="/#home" class="brand">
-      <svg width="36" height="36" viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="15.5" cy="22" r="11" fill="var(--accent-regular)"></circle>
-        <circle cx="26" cy="16.5" r="7.5" fill="var(--accent-light)"></circle>
-        <circle cx="26" cy="16.5" r="2.6" fill="#fff"></circle>
-      </svg>
-      <span class="wordmark">Your Family Paediatrician</span>
-    </a>
+    <Brand />
 
     <nav class="pill-nav" aria-label="Sections">
       {
@@ -60,21 +54,6 @@ const navLinks: { label: string; href: string }[] = [
     justify-content: space-between;
     gap: 1rem;
     padding-block: 0.8rem;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  .wordmark {
-    font-family: var(--font-brand);
-    font-weight: 700;
-    font-size: 1.0625rem;
-    letter-spacing: -0.01em;
   }
 
   .pill-nav {

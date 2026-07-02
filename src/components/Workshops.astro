@@ -1,0 +1,123 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+import Testimonial from "./Testimonial.astro";
+import CallToAction from "./ui/CallToAction.astro";
+
+const quotes = (
+  await getCollection("testimonials", ({ data }) => data.type === "workshop")
+).sort((a, b) => a.data.order - b.data.order);
+
+const eventbriteUrl =
+  "https://E14YogaCoach-First-Aid-For-Babies.eventbrite.co.uk";
+---
+
+<section id="workshops" class="section alt">
+  <div class="wrapper">
+    <SectionHeader
+      eyebrow="Feel prepared, not panicked"
+      title="Workshops & talks"
+      intro="Practical, supportive sessions for parents, nurseries and organisations — designed to help you feel confident in real-life situations, from everyday concerns to emergencies. Especially helpful for first-time parents."
+    />
+    <div class="layout">
+      <article class="session-card">
+        <span class="badge">Next session</span>
+        <h3>First Aid for Babies</h3>
+        <p class="when-where">
+          <strong>Sunday 12 July 2026</strong> · 2:00–4:30pm<br />
+          Dockland Settlements, London E14 3PS
+        </p>
+        <p class="details">
+          A hands-on session covering infant basic life support and what to do
+          in an emergency. Group or 1:1 sessions available.
+        </p>
+        <CallToAction
+          href={eventbriteUrl}
+          target="_blank"
+          rel="noopener"
+          size="small"
+        >
+          Book on Eventbrite
+        </CallToAction>
+      </article>
+      <ul class="quotes">
+        {
+          quotes.map((quote) => (
+            <li>
+              <Testimonial testimonial={quote} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .session-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 1 380px;
+    min-width: 300px;
+    padding: clamp(1.625rem, 3.2vw, 2.375rem);
+    background-color: var(--aqua-tint);
+    border: 1px solid #d7e8e4;
+    border-radius: var(--radius);
+  }
+
+  .badge {
+    padding: 0.375rem 0.8125rem;
+    margin-bottom: 1.125rem;
+    background-color: var(--accent-regular);
+    border-radius: 999rem;
+    color: var(--gray-999);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+    margin-bottom: 0.875rem;
+  }
+
+  .when-where {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #3a4a46;
+    margin-bottom: 0.5rem;
+  }
+
+  .when-where strong {
+    color: var(--text);
+  }
+
+  .details {
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .quotes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    flex: 1 1 300px;
+    min-width: 260px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>

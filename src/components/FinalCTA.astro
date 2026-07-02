@@ -1,0 +1,87 @@
+---
+import CallToAction from "./ui/CallToAction.astro";
+
+const bookingUrl =
+  "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
+---
+
+<section id="contact" class="final-cta">
+  <div class="wrapper">
+    <div class="panel">
+      <div class="bubble" aria-hidden="true"></div>
+      <div class="content">
+        <h2>
+          Let's help you feel calmer and more confident about your child's
+          health.
+        </h2>
+        <p>Book a consultation or get in touch — I'd love to hear from you.</p>
+        <div class="cta-row">
+          <CallToAction
+            variant="white"
+            href={bookingUrl}
+            target="_blank"
+            rel="noopener"
+          >
+            Book a consultation
+          </CallToAction>
+          <CallToAction variant="ghost">Get in touch</CallToAction>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    padding-block: clamp(1.25rem, 4vw, 2.5rem) clamp(3.75rem, 8vw, 6.25rem);
+  }
+
+  .panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2.5rem, 6vw, 4.75rem) clamp(1.75rem, 5vw, 4rem);
+    background-color: var(--accent-deep);
+    border-radius: var(--radius);
+    text-align: center;
+    color: var(--gray-999);
+  }
+
+  .bubble {
+    position: absolute;
+    bottom: -140px;
+    left: -100px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background-color: rgb(147 225 216 / 14%);
+    pointer-events: none;
+  }
+
+  .content {
+    position: relative;
+  }
+
+  h2 {
+    max-width: 18em;
+    margin: 0 auto 1rem;
+    font-size: clamp(1.75rem, 4.2vw, 2.875rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--gray-999);
+  }
+
+  p {
+    max-width: 34em;
+    margin: 0 auto 2rem;
+    font-size: clamp(1rem, 1.5vw, 1.1875rem);
+    line-height: 1.6;
+    color: rgb(255 255 255 / 84%);
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.875rem;
+  }
+</style>

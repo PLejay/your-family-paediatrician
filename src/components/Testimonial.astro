@@ -1,50 +1,39 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
-import "../styles/testimonials.css";
-import Icon from "./ui/Icon.astro";
+import Stars from "./ui/Stars.astro";
 
 type Props = {
   testimonial: CollectionEntry<"testimonials">;
 };
 
-const { type } = Astro.props.testimonial.data;
 const { Content } = await render(Astro.props.testimonial);
 ---
 
-<div class="testimonial">
-  <Icon icon="quote" size="3em" color="#a3acc8" />
-  <h5 class="type">{type}</h5>
-  <article>
+<figure class="testimonial">
+  <Stars />
+  <blockquote>
     <Content />
-  </article>
-</div>
+  </blockquote>
+</figure>
 
 <style>
   .testimonial {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    height: 100%;
+    margin: 0;
+    padding: 1.75rem;
+    background-color: var(--card-tint);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
   }
 
-  h5 {
-    font-size: var(--text-lg);
-    color: var(--gray-500);
-    font-weight: 400;
+  blockquote {
+    margin: 0.75rem 0 0;
+    font-style: italic;
+    font-size: 1.1875rem;
+    line-height: 1.5;
+    color: #2f3f3b;
   }
 
-  article {
-    text-align: center;
-    text-wrap: balance;
-  }
-
-  @media (width >= 50em) {
-    article {
-      text-align: left;
-    }
+  blockquote :global(p) {
+    margin: 0;
   }
 </style>

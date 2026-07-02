@@ -1,72 +1,25 @@
 ---
+import About from "../components/About.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Hero from "../components/Hero.astro";
+import HowIHelp from "../components/HowIHelp.astro";
+import Resources from "../components/Resources.astro";
+import Reviews from "../components/Reviews.astro";
+import Services from "../components/Services.astro";
+import Workshops from "../components/Workshops.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// One-page scaffold. Each <section> below is an anchored placeholder that the
-// per-section issues flesh out — see agent-notes/03-page-structure.md.
-// Anchors consumed by the sticky nav (GH-22): #home #help #services
-// #workshops #about #reviews #contact.
+// One-page layout. Section anchors consumed by the sticky nav (GH-22):
+// #home #help #services #workshops #about #reviews #contact.
 ---
 
 <BaseLayout>
-  {/* Hero — GH-23 */}
-  <section id="home" class="section">
-    <div class="wrapper">
-      <h1>Hero</h1>
-    </div>
-  </section>
-
-  {/* How I can help — GH-24 */}
-  <section id="help" class="section">
-    <div class="wrapper">
-      <h2>How I can help</h2>
-    </div>
-  </section>
-
-  {/* Services + Fees & insurance — GH-25 / GH-26 */}
-  <section id="services" class="section">
-    <div class="wrapper">
-      <h2>Services</h2>
-    </div>
-  </section>
-
-  {/* Workshops & talks — GH-27 */}
-  <section id="workshops" class="section">
-    <div class="wrapper">
-      <h2>Workshops &amp; talks</h2>
-    </div>
-  </section>
-
-  {/* About — GH-28 */}
-  <section id="about" class="section">
-    <div class="wrapper">
-      <h2>About</h2>
-    </div>
-  </section>
-
-  {/* Reviews — GH-29 */}
-  <section id="reviews" class="section">
-    <div class="wrapper">
-      <h2>Reviews</h2>
-    </div>
-  </section>
-
-  {/* Helpful resources (no anchor) — GH-30 */}
-  <section class="section">
-    <div class="wrapper">
-      <h2>Helpful resources</h2>
-    </div>
-  </section>
-
-  {/* Final call-to-action — GH-31 */}
-  <section id="contact" class="section">
-    <div class="wrapper">
-      <h2>Get in touch</h2>
-    </div>
-  </section>
+  <Hero />
+  <HowIHelp />
+  <Services />
+  <Workshops />
+  <About />
+  <Reviews />
+  <Resources />
+  <FinalCTA />
 </BaseLayout>
-
-<style>
-  .section {
-    padding-block: clamp(60px, 8vw, 110px);
-  }
-</style>
