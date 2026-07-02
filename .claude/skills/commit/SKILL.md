@@ -1,5 +1,5 @@
 ---
-name: commit-all
+name: commit
 description: Stage all files and commit them following the rules of the current repository
 allowed-tools: Bash(git -C * add *), Bash(git -C * commit *)
 ---
