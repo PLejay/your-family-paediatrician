@@ -4,14 +4,19 @@ type Props = {
 };
 
 const { size = 36 } = Astro.props;
+
+// favicon.svg has a 174.4 × 121.1 viewBox, so scale width to keep its ratio
+const logoWidth = Math.round(size * (174.40541 / 121.08108));
 ---
 
 <a href="/#home" class="brand">
-  <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
-    <circle cx="15.5" cy="22" r="11" fill="var(--accent-regular)"></circle>
-    <circle cx="26" cy="16.5" r="7.5" fill="var(--accent-light)"></circle>
-    <circle cx="26" cy="16.5" r="2.6" fill="#fff"></circle>
-  </svg>
+  <img
+    src="/favicon.svg"
+    alt=""
+    width={logoWidth}
+    height={size}
+    aria-hidden="true"
+  />
   <span class="wordmark">Your Family Paediatrician</span>
 </a>
 
