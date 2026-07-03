@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import portrait from "../assets/portrait-bricks-cropped.jpg";
+import portrait from "../assets/portrait-red-shirt-bookcase.jpg";
 
 const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
 ---
@@ -10,7 +10,7 @@ const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
     <div class="portrait">
       <Image
         src={portrait}
-        alt="Dr Shiri Lejay smiling in front of an exposed-brick wall"
+        alt="Dr Shiri Lejay smiling, wearing a red shirt in front of a bookcase"
         widths={[400, 640, 800, 1200]}
         sizes="(max-width: 50em) 100vw, 40vw"
         loading="lazy"
@@ -22,8 +22,8 @@ const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
       <p class="body-copy">
         As both a paediatrician and a mother, I understand how overwhelming it
         can feel to make sense of your child's health — particularly with so
-        much conflicting information. I help parents cut through that noise
-        with clear, practical advice and a calm, reassuring approach.
+        much conflicting information. I help parents cut through that noise with
+        clear, practical advice and a calm, reassuring approach.
       </p>
       <p class="body-copy">
         I'm a Consultant Paediatrician with 18 years of NHS experience, working
@@ -58,6 +58,9 @@ const badges = ["MB", "MRCPCH", "DTM&H", "LFHom (Med)", "PGCert (Med Ed)"];
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+
+    /* The photo has little headroom, so crop the square from the bottom */
+    object-position: 50% 30%;
     border-radius: var(--radius);
   }
 

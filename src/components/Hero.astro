@@ -1,11 +1,12 @@
 ---
 import { Image } from "astro:assets";
-import portrait from "../assets/portrait-red-shirt-bookcase.jpg";
+import portrait from "../assets/portrait-bricks-cropped.jpg";
 import CallToAction from "./ui/CallToAction.astro";
 import Stars from "./ui/Stars.astro";
 
 const bookingUrl =
   "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
+const doctifyUrl = "https://www.doctify.com/uk/specialist/shiri-lejay";
 ---
 
 <section id="home" class="hero">
@@ -32,9 +33,9 @@ const bookingUrl =
         <CallToAction variant="outline">Get in touch</CallToAction>
       </div>
       <div class="trust-row">
-        <span class="trust-item">
+        <a class="trust-item" href={doctifyUrl} target="_blank" rel="noopener">
           <Stars label="Rated 4.97 out of 5 on Doctify" /> 4.97 / 5 on Doctify
-        </span>
+        </a>
         <span class="dot" aria-hidden="true"></span>
         <span>Private appointments at Central Health London</span>
         <span class="dot" aria-hidden="true"></span>
@@ -44,7 +45,7 @@ const bookingUrl =
     <div class="portrait">
       <Image
         src={portrait}
-        alt="Dr Shiri Lejay smiling, wearing a red shirt in front of a bookcase"
+        alt="Dr Shiri Lejay smiling in front of an exposed-brick wall"
         widths={[400, 640, 800, 1200]}
         sizes="(max-width: 50em) 100vw, 40vw"
         loading="eager"
@@ -136,6 +137,14 @@ const bookingUrl =
     display: inline-flex;
     align-items: center;
     gap: 0.4375rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.trust-item:hover,
+  a.trust-item:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
   }
 
   .dot {
