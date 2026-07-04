@@ -6,14 +6,15 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
+  noindex?: boolean | undefined;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <MainHead title={title} description={description} />
+    <MainHead title={title} description={description} noindex={noindex} />
   </head>
   <body>
     <div class="stack">

@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const email = "shiri@yourfamilypaediatrician.com";
+const lastUpdated = "4 July 2026";
+---
+
+<BaseLayout
+  title="Privacy policy — Your Family Paediatrician"
+  description="How Your Family Paediatrician handles the personal information you share through this website."
+>
+  <section class="section">
+    <div class="wrapper">
+      <article class="policy">
+        <h1>Privacy policy</h1>
+        <p class="updated">Last updated: {lastUpdated}</p>
+
+        <p>
+          This website belongs to Dr Shiri Lejay, Consultant Paediatrician,
+          trading as Your Family Paediatrician ("I", "me"). I am the data
+          controller for the personal information collected through this
+          website. You can contact me about anything in this policy at
+          <a href={`mailto:${email}`}>{email}</a>.
+        </p>
+
+        <h2>What I collect</h2>
+        <p>
+          The only personal information this website collects is what you
+          choose to send me through the booking form (or by emailing me
+          directly): your name, email address, phone number (optional), your
+          child's age, the topic you'd like help with, and your message.
+        </p>
+        <p>
+          Your message may include information about your child's health.
+          Health information is special-category data under UK data protection
+          law — please share only what you feel is needed for me to help; we
+          can discuss the details when I reply.
+        </p>
+        <p>
+          This website sets no cookies and uses no analytics or tracking of
+          any kind.
+        </p>
+
+        <h2>How I use it</h2>
+        <p>
+          I use the information you send solely to respond to your enquiry and
+          to arrange your appointment. The legal bases for this are taking
+          steps at your request before entering into a contract, and — for any
+          health information you choose to include — your consent, which you
+          can withdraw at any time by contacting me.
+        </p>
+        <p>I never sell or share your information for marketing.</p>
+
+        <h2>Where it goes and how long it's kept</h2>
+        <p>
+          This website is hosted by Netlify, which processes form submissions
+          on my behalf and may do so on servers outside the UK, subject to the
+          safeguards in its data processing agreement. Form submissions are
+          automatically deleted from Netlify within 7 days; your enquiry is
+          delivered to my practice email inbox, where I keep it only as long
+          as needed to handle your enquiry and meet my professional
+          record-keeping obligations.
+        </p>
+        <p>
+          If you go on to have a consultation, your clinical records are held
+          by Central Health London under its own privacy policy.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>
+          You have the right to ask for a copy of the information I hold about
+          you, to have it corrected or deleted, to restrict or object to its
+          use, to receive it in a portable format, and to withdraw consent.
+          To exercise any of these, email
+          <a href={`mailto:${email}`}>{email}</a>. You can also complain to
+          the Information Commissioner's Office at
+          <a href="https://ico.org.uk" target="_blank" rel="noopener"
+            >ico.org.uk</a
+          >.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+          Any changes to this policy will be posted on this page with an
+          updated date above.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .policy {
+    max-width: 42em;
+  }
+
+  h1 {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.75rem, 4vw, 2.625rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+  }
+
+  .updated {
+    margin-bottom: 2rem;
+    font-size: 13.5px;
+    color: #8a9893;
+  }
+
+  h2 {
+    margin: 2rem 0 0.75rem;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  a {
+    color: var(--accent-deep);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+</style>

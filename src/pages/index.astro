@@ -1,5 +1,6 @@
 ---
 import About from "../components/About.astro";
+import Booking from "../components/Booking.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Hero from "../components/Hero.astro";
 import HowIHelp from "../components/HowIHelp.astro";
@@ -9,8 +10,9 @@ import Services from "../components/Services.astro";
 import Workshops from "../components/Workshops.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// One-page layout. Section anchors consumed by the sticky nav (GH-22):
-// #home #help #services #workshops #about #reviews #contact.
+// One-page layout. Section anchors consumed by the sticky nav (GH-22)
+// and in-page CTAs: #home #help #services #workshops #about #reviews
+// #book #contact. (Nav/CTA links to #book land with GH-35.)
 ---
 
 <BaseLayout>
@@ -21,5 +23,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <About />
   <Reviews />
   <Resources />
+  <Booking />
   <FinalCTA />
 </BaseLayout>

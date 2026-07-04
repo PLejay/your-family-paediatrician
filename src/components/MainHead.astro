@@ -6,9 +6,11 @@ import "../styles/global.css";
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
+  noindex?: boolean | undefined;
 }
 
 const {
+  noindex = false,
   title = "Your Family Paediatrician",
   description = "Dr Shiri Lejay, Consultant Paediatrician in London — private consultations, home visits and parent workshops. Clear, practical advice for calm, confident parenting.",
 } = Astro.props;
@@ -27,6 +29,7 @@ const ogImage = await getImage({
 <meta name="description" property="og:description" content={description} />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
+{noindex && <meta name="robots" content="noindex" />}
 <title>{title}</title>
 
 <link rel="canonical" href={canonical} />

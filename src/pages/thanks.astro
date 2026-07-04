@@ -1,0 +1,60 @@
+---
+import CallToAction from "../components/ui/CallToAction.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// No-JS fallback target for the booking form's native POST (see Booking.astro).
+---
+
+<BaseLayout title="Thank you — Your Family Paediatrician" noindex>
+  <section class="section">
+    <div class="wrapper">
+      <div class="success-card">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <h1>Thank you — your request is on its way</h1>
+        <p>
+          I'll get back to you within 1–2 working days to arrange your
+          appointment.
+        </p>
+        <CallToAction href="/" size="small">Back to the homepage</CallToAction>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .success-card {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: clamp(1.875rem, 4vw, 3rem);
+    background-color: var(--aqua-tint);
+    border: 1px solid #d7e8e4;
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.125rem;
+    border-radius: 50%;
+    background-color: var(--accent-regular);
+    color: var(--gray-999);
+    font-size: 1.625rem;
+    line-height: 1;
+  }
+
+  h1 {
+    margin-bottom: 0.625rem;
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  }
+
+  .success-card p {
+    margin-bottom: 1.5rem;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+</style>
