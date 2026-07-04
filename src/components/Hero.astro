@@ -4,8 +4,6 @@ import portrait from "../assets/portrait-bricks-cropped.jpg";
 import CallToAction from "./ui/CallToAction.astro";
 import Stars from "./ui/Stars.astro";
 
-const bookingUrl =
-  "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
 const doctifyUrl = "https://www.doctify.com/uk/specialist/shiri-lejay";
 ---
 
@@ -27,9 +25,7 @@ const doctifyUrl = "https://www.doctify.com/uk/specialist/shiri-lejay";
         what to do next.
       </p>
       <div class="cta-row">
-        <CallToAction href={bookingUrl} target="_blank" rel="noopener">
-          Book a consultation
-        </CallToAction>
+        <CallToAction href="#book">Book a consultation</CallToAction>
         <CallToAction variant="outline">Get in touch</CallToAction>
       </div>
       <div class="trust-row">

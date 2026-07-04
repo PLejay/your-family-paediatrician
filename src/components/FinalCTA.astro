@@ -1,8 +1,5 @@
 ---
 import CallToAction from "./ui/CallToAction.astro";
-
-const bookingUrl =
-  "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
 ---
 
 <section id="contact" class="final-cta">
@@ -16,12 +13,7 @@ const bookingUrl =
         </h2>
         <p>Book a consultation or get in touch — I'd love to hear from you.</p>
         <div class="cta-row">
-          <CallToAction
-            variant="white"
-            href={bookingUrl}
-            target="_blank"
-            rel="noopener"
-          >
+          <CallToAction variant="white" href="#book">
             Book a consultation
           </CallToAction>
           <CallToAction variant="ghost">Get in touch</CallToAction>

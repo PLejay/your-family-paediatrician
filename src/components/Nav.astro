@@ -2,9 +2,6 @@
 import Brand from "./Brand.astro";
 import CallToAction from "./ui/CallToAction.astro";
 
-const bookingUrl =
-  "https://www.centralhealthlondon.com/practitioners/dr-shiri-lejay";
-
 // Root-absolute fragments (not bare `#help`) so the links still resolve from
 // non-index routes like 404.astro, which also render this nav via BaseLayout.
 // Section ids live in src/pages/index.astro.
@@ -31,9 +28,7 @@ const navLinks: { label: string; href: string }[] = [
       }
     </nav>
 
-    <CallToAction href={bookingUrl} target="_blank" rel="noopener" size="small">
-      Book a consultation
-    </CallToAction>
+    <CallToAction href="/#book" size="small">Book a consultation</CallToAction>
   </div>
 </header>
 
