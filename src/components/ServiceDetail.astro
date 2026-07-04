@@ -6,7 +6,7 @@ type Props = {
 };
 
 const { service } = Astro.props;
-const { title, icon, cta_label, cta_href } = service.data;
+const { title, icon, cta_label, cta_href, cta_topic } = service.data;
 const external = cta_href.startsWith("http");
 const { Content } = await render(service);
 ---
@@ -21,6 +21,7 @@ const { Content } = await render(service);
     href={cta_href}
     target={external ? "_blank" : undefined}
     rel={external ? "noopener" : undefined}
+    data-book-topic={cta_topic}
     class="card-link"
   >
     {cta_label} →

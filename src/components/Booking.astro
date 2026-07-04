@@ -117,6 +117,23 @@ const topics = [
   const form = document.querySelector<HTMLFormElement>(".enquiry-form");
   const successCard = document.querySelector<HTMLElement>(".success-card");
   const errorNote = document.querySelector<HTMLElement>(".form-error");
+  const topicSelect = form?.querySelector<HTMLSelectElement>(
+    "select[name='topic']",
+  );
+
+  // Links elsewhere on the page (e.g. the service cards) can pre-select the
+  // topic dropdown by carrying a data-book-topic attribute.
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element) || !topicSelect) return;
+    const topic = event.target.closest<HTMLAnchorElement>("a[data-book-topic]")
+      ?.dataset.bookTopic;
+    if (
+      topic &&
+      [...topicSelect.options].some((option) => option.value === topic)
+    ) {
+      topicSelect.value = topic;
+    }
+  });
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();

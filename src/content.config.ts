@@ -19,6 +19,10 @@ export const collections = {
       order: z.number(),
       cta_label: z.string(),
       cta_href: z.string(),
+      // When set, clicking the CTA pre-selects this option in the booking
+      // form's "What would you like help with?" dropdown (must match the
+      // option text in Booking.astro).
+      cta_topic: z.string().optional(),
     }),
   }),
 };
