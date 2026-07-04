@@ -1,0 +1,70 @@
+---
+// Shared success state for the booking enquiry: rendered hidden inside
+// Booking.astro (swapped in by its submit script) and as the visible body of
+// /thanks/ (the no-JS fallback), so the two paths can't drift apart.
+interface Props {
+  headingLevel?: "h1" | "h3";
+  hidden?: boolean;
+  focusable?: boolean;
+}
+
+const { headingLevel = "h3", hidden = false, focusable = false } = Astro.props;
+const Heading = headingLevel;
+---
+
+<div
+  class="success-card"
+  hidden={hidden}
+  tabindex={focusable ? "-1" : undefined}
+>
+  <div class="success-icon" aria-hidden="true">✓</div>
+  <Heading>Thank you — your request is on its way</Heading>
+  <p>
+    I'll get back to you within 1–2 working days to arrange your appointment.
+  </p>
+  <slot />
+</div>
+
+<style>
+  .success-card {
+    padding: clamp(1.875rem, 4vw, 3rem);
+    background-color: var(--aqua-tint);
+    border: 1px solid #d7e8e4;
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.125rem;
+    border-radius: 50%;
+    background-color: var(--accent-regular);
+    color: var(--gray-999);
+    font-size: 1.625rem;
+    line-height: 1;
+  }
+
+  h1,
+  h3 {
+    margin-bottom: 0.625rem;
+  }
+
+  h1 {
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  }
+
+  h3 {
+    font-size: 1.375rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+</style>

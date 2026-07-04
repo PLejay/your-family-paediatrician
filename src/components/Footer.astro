@@ -1,12 +1,13 @@
 ---
+import { PRACTICE_EMAIL } from "../constants";
 import Brand from "./Brand.astro";
 
 const currentYear = new Date().getFullYear();
 
 const links = [
   {
-    label: "shiri@yourfamilypaediatrician.com",
-    href: "mailto:shiri@yourfamilypaediatrician.com",
+    label: PRACTICE_EMAIL,
+    href: `mailto:${PRACTICE_EMAIL}`,
     accent: true,
   },
   {

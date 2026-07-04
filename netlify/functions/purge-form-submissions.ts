@@ -5,12 +5,43 @@ import type { Config } from "@netlify/functions";
 // system of record, so submissions only need to live in Netlify storage long
 // enough to survive a lost notification.
 const RETENTION_DAYS = 7;
+const FORM_NAME = "booking";
 const API = "https://api.netlify.com/api/v1";
 const PAGE_SIZE = 100;
+const DELETE_BATCH = 10;
+
+interface NetlifyForm {
+  id: string;
+  name: string;
+}
 
 interface Submission {
   id: string;
   created_at: string;
+}
+
+async function listPages(
+  url: string,
+  headers: HeadersInit,
+  label: string,
+  extraQuery = "",
+) {
+  const all: Submission[] = [];
+  for (let page = 1; ; page++) {
+    const response = await fetch(
+      `${url}?${extraQuery}per_page=${PAGE_SIZE}&page=${page}`,
+      { headers },
+    );
+    if (!response.ok) {
+      throw new Error(
+        `listing ${label} submissions (page ${page}) failed: ${response.status}`,
+      );
+    }
+    const batch = (await response.json()) as Submission[];
+    all.push(...batch);
+    if (batch.length < PAGE_SIZE) break;
+  }
+  return all;
 }
 
 export default async () => {
@@ -26,34 +57,48 @@ export default async () => {
   const headers = { Authorization: `Bearer ${token}` };
   const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
 
-  // Collect every page before deleting anything — deleting while paginating
-  // shifts the pages underneath us. The default listing returns verified
-  // submissions; the spam bucket holds PII too and needs its own pass.
-  const stale: Submission[] = [];
-  for (const stateParam of ["", "state=spam&"]) {
-    for (let page = 1; ; page++) {
-      const response = await fetch(
-        `${API}/sites/${siteId}/submissions?${stateParam}per_page=${PAGE_SIZE}&page=${page}`,
-        { headers },
-      );
-      if (!response.ok) {
-        throw new Error(
-          `listing submissions (${stateParam || "verified"} page ${page}) failed: ${response.status}`,
-        );
-      }
-      const batch = (await response.json()) as Submission[];
-      stale.push(...batch.filter((s) => Date.parse(s.created_at) < cutoff));
-      if (batch.length < PAGE_SIZE) break;
-    }
+  // Verified submissions are purged per-form so a future form whose entries
+  // should persist isn't silently emptied by this job.
+  const formsResponse = await fetch(`${API}/sites/${siteId}/forms`, {
+    headers,
+  });
+  if (!formsResponse.ok) {
+    throw new Error(`listing forms failed: ${formsResponse.status}`);
   }
+  const forms = (await formsResponse.json()) as NetlifyForm[];
+  const bookingForm = forms.find((form) => form.name === FORM_NAME);
+  if (!bookingForm) {
+    // Fail loudly: either form detection isn't finished, or the form was
+    // renamed without updating this function — in both cases PII may be
+    // accumulating unpurged.
+    throw new Error(
+      `form "${FORM_NAME}" not found on site — nothing was purged`,
+    );
+  }
+
+  // Collect everything before deleting anything — deleting while paginating
+  // shifts the pages underneath us. The spam pass is deliberately site-wide:
+  // week-old spam holds PII too and no form wants to keep it.
+  const stale = [
+    ...(await listPages(
+      `${API}/forms/${bookingForm.id}/submissions`,
+      headers,
+      FORM_NAME,
+    )),
+    ...(await listPages(
+      `${API}/sites/${siteId}/submissions`,
+      headers,
+      "spam",
+      "state=spam&",
+    )),
+  ].filter((s) => Date.parse(s.created_at) < cutoff);
 
   // Delete in small concurrent batches so a backlog can't run the function
   // into its timeout.
   let deleted = 0;
-  const BATCH = 10;
-  for (let i = 0; i < stale.length; i += BATCH) {
+  for (let i = 0; i < stale.length; i += DELETE_BATCH) {
     const results = await Promise.allSettled(
-      stale.slice(i, i + BATCH).map(async (submission) => {
+      stale.slice(i, i + DELETE_BATCH).map(async (submission) => {
         const response = await fetch(`${API}/submissions/${submission.id}`, {
           method: "DELETE",
           headers,
@@ -74,6 +119,13 @@ export default async () => {
   console.log(
     `purge-form-submissions: deleted ${deleted}/${stale.length} submissions older than ${RETENTION_DAYS} days`,
   );
+  if (deleted < stale.length) {
+    // Same principle as the missing-token check: a partially failed purge
+    // must not report success.
+    throw new Error(
+      `failed to delete ${stale.length - deleted} of ${stale.length} stale submissions`,
+    );
+  }
 };
 
 export const config: Config = {

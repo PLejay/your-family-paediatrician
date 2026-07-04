@@ -1,4 +1,6 @@
 ---
+import { PRACTICE_EMAIL } from "../../constants";
+
 type Props = {
   href?: string;
   size?: "small" | "default";
@@ -8,7 +10,7 @@ type Props = {
 };
 
 const {
-  href = "mailto:shiri@yourfamilypaediatrician.com",
+  href = `mailto:${PRACTICE_EMAIL}`,
   size = "default",
   variant = "primary",
   target,
