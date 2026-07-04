@@ -38,6 +38,11 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
         ))
       }
     </dl>
+    <p class="affordability">
+      Every family's circumstances are different. If cost is a barrier, please
+      <a href="#book">get in touch</a> — I'm always happy to talk through fees,
+      packages and any special arrangements.
+    </p>
     <p class="note">
       Postnatal package excludes vaccine costs.
       <a href={feesUrl} target="_blank" rel="noopener">
@@ -118,9 +123,24 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
     white-space: nowrap;
   }
 
+  .affordability {
+    margin-top: 1.25rem;
+    padding: 0.875rem 1rem;
+    background-color: rgb(255 255 255 / 10%);
+    border-radius: 0.75rem;
+    font-size: 0.9063rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 92%);
+  }
+
+  .affordability a {
+    color: var(--accent-light);
+    font-weight: 600;
+  }
+
   .note {
     margin-top: 0.875rem;
-    font-size: 0.8125rem;
+    font-size: 0.7813rem;
     color: rgb(255 255 255 / 70%);
   }
 
