@@ -1,4 +1,9 @@
 ---
+import AvivaLogo from "../assets/logos/aviva.svg";
+import HealixLogo from "../assets/logos/healix.svg";
+import VitalityLogo from "../assets/logos/vitality.svg";
+import WpaLogo from "../assets/logos/wpa.svg";
+
 const fees = [
   { service: "Initial consultation · 45 min", price: "£350" },
   { service: "Home visit · 45 min", price: "£500" },
@@ -10,7 +15,12 @@ const fees = [
   },
 ];
 
-const insurers = ["Healix", "Aviva", "WPA", "Vitality"];
+const insurers = [
+  { name: "Healix", Logo: HealixLogo },
+  { name: "Aviva", Logo: AvivaLogo },
+  { name: "WPA", Logo: WpaLogo },
+  { name: "Vitality", Logo: VitalityLogo },
+];
 
 const feesUrl = "https://www.centralhealthlondon.com/fees";
 ---
@@ -39,7 +49,18 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
     <h3>Insurance</h3>
     <p class="welcome">I welcome self-paying patients and am recognised by:</p>
     <ul class="insurers">
-      {insurers.map((insurer) => <li>{insurer}</li>)}
+      {
+        insurers.map(({ name, Logo }) => (
+          <li>
+            <Logo
+              role="img"
+              aria-label={name}
+              height={24}
+              class={`logo-${name.toLowerCase()}`}
+            />
+          </li>
+        ))
+      }
     </ul>
     <p class="confirm">
       Get in touch to discuss your options or confirm your cover.
@@ -129,11 +150,32 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
   }
 
   .insurers li {
-    padding: 0.5rem 1rem;
-    background-color: rgb(255 255 255 / 13%);
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding-inline: 1.125rem;
+    background-color: var(--gray-999);
     border-radius: 999rem;
-    font-size: 0.9063rem;
-    font-weight: 600;
+  }
+
+  .insurers li :global(svg) {
+    width: auto;
+  }
+
+  .insurers :global(.logo-healix) {
+    height: 1.375rem;
+  }
+
+  .insurers :global(.logo-aviva) {
+    height: 1.25rem;
+  }
+
+  .insurers :global(.logo-wpa) {
+    height: 2rem;
+  }
+
+  .insurers :global(.logo-vitality) {
+    height: 2rem;
   }
 
   .confirm {
