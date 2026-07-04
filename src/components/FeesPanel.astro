@@ -93,7 +93,11 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
 
   .fees {
     flex: 1 1 360px;
-    min-width: 280px;
+
+    /* min() so the column can shrink below its preferred width on phones
+       narrower than ~384px instead of overflowing (body uses overflow-x:
+       clip, which would silently cut off the prices rather than scroll). */
+    min-width: min(280px, 100%);
   }
 
   dl {
@@ -150,7 +154,7 @@ const feesUrl = "https://www.centralhealthlondon.com/fees";
 
   .insurance {
     flex: 1 1 240px;
-    min-width: 230px;
+    min-width: min(230px, 100%);
   }
 
   .welcome {
