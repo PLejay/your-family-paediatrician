@@ -25,4 +25,21 @@ export const collections = {
       cta_topic: z.string().optional(),
     }),
   }),
+  // External blog-article cards; the markdown body is the card teaser.
+  // To add an article: drop a 16:10 thumbnail in src/assets/articles/ and
+  // create a new .md alongside the existing ones. Keep the teaser plain
+  // text — no markdown links, as the whole card already renders as an <a>
+  // and nested links would split its click area.
+  articles: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        category: z.string(),
+        url: z.url(),
+        // Newest-first ordering; not currently displayed.
+        published: z.coerce.date(),
+        image: image(),
+      }),
+  }),
 };

@@ -1,75 +1,247 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection, render } from "astro:content";
 import Grid from "./Grid.astro";
 import SectionHeader from "./SectionHeader.astro";
 
 const blogUrl =
   "https://www.centralhealthlondon.com/news-and-articles/categories/paediatrics";
 const instagramUrl = "https://www.instagram.com/your_family_paediatrician/";
+
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
+);
+const articleCards = await Promise.all(
+  articles.map(async (article) => ({
+    article,
+    Content: (await render(article)).Content,
+  })),
+);
+// A lone article card looks sparse, so the grid stays hidden until a second
+// article is published — it un-hides automatically from 2 entries [GH-41].
+const showArticles = articleCards.length > 1;
 ---
 
 <section class="section">
   <div class="wrapper">
     <SectionHeader eyebrow="Trusted information" title="Helpful resources" />
-    <Grid minCol="270px">
-      <li>
-        <article class="card emergency">
-          <h3>In an emergency</h3>
-          <p>
-            Call <strong>999</strong>, or <strong>NHS 111</strong> for urgent
-            advice. For urgent but non-emergency care, contact your GP or local
-            urgent care centre.
-          </p>
-        </article>
-      </li>
-      <li>
-        <article class="card">
-          <h3>Evidence-based articles</h3>
-          <p>
-            Practical, evidence-based paediatric reading from Central Health
-            London.
-          </p>
-          <a href={blogUrl} target="_blank" rel="noopener" class="card-link">
-            Read the blog →
-          </a>
-        </article>
-      </li>
-      <li>
-        <article class="card">
-          <h3>Follow along <span class="soon">(coming soon)</span></h3>
-          <p>
-            Short, practical videos to help you feel confident about your
-            child's health.
-          </p>
-          <a
-            href={instagramUrl}
-            target="_blank"
-            rel="noopener"
-            class="card-link"
-          >
-            @your_family_paediatrician →
-          </a>
-        </article>
-      </li>
-    </Grid>
+    <div class="resource-stack">
+      <div class="emergency-band">
+        <h3>In an emergency</h3>
+        <p>
+          Call <strong>999</strong>, or <strong>NHS 111</strong> for urgent
+          advice. For urgent but non-emergency care, contact your GP or local
+          urgent care centre.
+        </p>
+      </div>
+
+      {showArticles && (
+      <ul class="article-grid">
+        {
+          articleCards.map(({ article, Content }) => (
+            <li>
+              <a
+                class="article-card"
+                href={article.data.url}
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="article-media">
+                  <Image
+                    src={article.data.image}
+                    alt=""
+                    widths={[320, 480, 680, 840, 960]}
+                    sizes="(max-width: 50em) 100vw, (max-width: 68em) 46vw, 30vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="article-body">
+                  <p class="article-category">{article.data.category}</p>
+                  <h3 class="article-title">{article.data.title}</h3>
+                  <div class="article-excerpt">
+                    <Content />
+                  </div>
+                  <p class="article-cta">Read article →</p>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      )}
+
+      <Grid minCol="260px">
+        <li>
+          <article class="tint-card">
+            <h3>From the blog</h3>
+            <p>
+              Practical, evidence-based paediatric reading — updated regularly
+              on Central Health London.
+            </p>
+            <a href={blogUrl} target="_blank" rel="noopener" class="card-link">
+              Read all articles →
+            </a>
+          </article>
+        </li>
+        <li>
+          <article class="tint-card">
+            <h3>Follow along <span class="soon">(coming soon)</span></h3>
+            <p>
+              Short, practical videos to help you feel confident about your
+              child's health.
+            </p>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener"
+              class="card-link"
+            >
+              @your_family_paediatrician →
+            </a>
+          </article>
+        </li>
+      </Grid>
+    </div>
   </div>
 </section>
 
 <style>
-  .card {
+  .resource-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .emergency-band {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: baseline;
+    padding: clamp(1.375rem, 2.6vw, 1.75rem);
+    background-color: var(--gray-999);
+    border: 1px solid #f0d6d4;
+    border-left: 4px solid var(--red-400);
+    border-radius: var(--radius);
+  }
+
+  .emergency-band h3 {
+    flex: 0 0 auto;
+    font-size: 1.1875rem;
+  }
+
+  .emergency-band p {
+    flex: 1 1 320px;
+    font-size: 0.9688rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .emergency-band strong {
+    color: var(--text);
+  }
+
+  /* auto-fill (not auto-fit) so a lone article card keeps a column's width
+     instead of stretching across the whole row. */
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+    gap: 1.25rem;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .article-grid > li {
+    display: grid;
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--gray-999);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition:
+      box-shadow var(--theme-transition),
+      transform var(--theme-transition);
+  }
+
+  .article-card:hover,
+  .article-card:focus-visible {
+    box-shadow: 0 14px 30px rgb(31 58 52 / 10%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .article-card:hover,
+    .article-card:focus-visible {
+      transform: translateY(-2px);
+    }
+  }
+
+  .article-media {
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .article-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .article-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.375rem 1.375rem 1.5rem;
+  }
+
+  .article-category {
+    margin-bottom: 0.5625rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-regular);
+  }
+
+  .article-title {
+    margin-bottom: 0.625rem;
+    font-size: 1.1875rem;
+    line-height: 1.25;
+  }
+
+  .article-excerpt {
+    flex: 1;
+  }
+
+  .article-excerpt :global(p) {
+    margin: 0 0 1rem;
+    font-size: 0.9063rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .article-cta {
+    font-weight: 700;
+    font-size: 0.9063rem;
+    color: var(--accent-deep);
+  }
+
+  .tint-card {
     display: flex;
     flex-direction: column;
     padding: clamp(1.5rem, 3vw, 1.875rem);
-    background-color: var(--gray-999);
+    background-color: var(--card-tint);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius);
   }
 
-  .card.emergency {
-    border-color: #f0d6d4;
-    border-left: 4px solid var(--red-400);
-  }
-
-  h3 {
+  .tint-card h3 {
     font-size: 1.25rem;
     margin-bottom: 0.625rem;
   }
@@ -80,15 +252,11 @@ const instagramUrl = "https://www.instagram.com/your_family_paediatrician/";
     color: #8a9893;
   }
 
-  p {
+  .tint-card p {
     flex: 1;
     font-size: 0.9688rem;
     line-height: 1.65;
     color: var(--text-muted);
-  }
-
-  p strong {
-    color: var(--text);
   }
 
   .card-link {
