@@ -4,6 +4,12 @@ Landing page for [Your Family Paediatrician](yourfamilypaediatrician.com), a per
 
 Built with Astro and Typescript. Deployed via Netlify
 
+## Documentation
+
+- [Architecture & design system](docs/architecture.md) — stack, page structure, colours/fonts/interaction rules
+- [Editing content](docs/content.md) — content collections (workshops, articles, testimonials, services) and where copy lives
+- [Deployment & operations](docs/operations.md) — branches, booking form backend, scheduled functions, one-off Netlify setup
+
 ## Prerequisites
 
 Node 24

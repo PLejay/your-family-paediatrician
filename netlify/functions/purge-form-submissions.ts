@@ -1,7 +1,7 @@
 import type { Config } from "@netlify/functions";
 
 // GDPR hygiene for the booking enquiry form (see
-// agent-notes/08-booking-form-netlify.md): the email notification is the
+// docs/operations.md): the email notification is the
 // system of record, so submissions only need to live in Netlify storage long
 // enough to survive a lost notification.
 const RETENTION_DAYS = 7;
