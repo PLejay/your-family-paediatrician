@@ -25,6 +25,23 @@ export const collections = {
       cta_topic: z.string().optional(),
     }),
   }),
+  // Workshop sessions; the markdown body is the upcoming-card description.
+  // One .md per session (dated filenames for recurring events). The
+  // upcoming/past split happens at build time from `date` — a passed date
+  // only moves to "Past workshops" on the next deploy.
+  workshops: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/workshops" }),
+    schema: z.object({
+      title: z.string(),
+      // The event day (drives the upcoming/past split and both date formats).
+      date: z.coerce.date(),
+      // Display string shown on upcoming cards, e.g. "2:00–4:30pm".
+      time: z.string().optional(),
+      location: z.string(),
+      // Booking link (upcoming cards); falls back to #book when absent.
+      url: z.url().optional(),
+    }),
+  }),
   // External blog-article cards; the markdown body is the card teaser.
   // To add an article: drop a 16:10 thumbnail in src/assets/articles/ and
   // create a new .md alongside the existing ones. Keep the teaser plain

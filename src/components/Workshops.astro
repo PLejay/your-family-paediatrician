@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import SectionHeader from "./SectionHeader.astro";
 import Testimonial from "./Testimonial.astro";
 import CallToAction from "./ui/CallToAction.astro";
@@ -8,8 +8,41 @@ const quotes = (
   await getCollection("testimonials", ({ data }) => data.type === "workshop")
 ).sort((a, b) => a.data.order - b.data.order);
 
-const eventbriteUrl =
-  "https://E14YogaCoach-First-Aid-For-Babies.eventbrite.co.uk";
+// Build-time split: a workshop stays "upcoming" through its own day (dates
+// are UTC midnight, so during BST it flips at 1am London — close enough).
+// A passed date only moves to "Past workshops" on the next deploy.
+const DAY_MS = 86_400_000;
+const now = Date.now();
+const workshops = await getCollection("workshops");
+const upcoming = workshops
+  .filter((w) => w.data.date.valueOf() + DAY_MS > now)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const past = workshops
+  .filter((w) => w.data.date.valueOf() + DAY_MS <= now)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const upcomingCards = await Promise.all(
+  upcoming.map(async (workshop, index) => ({
+    workshop,
+    badge: index === 0 ? "Next session" : "Workshop",
+    Content: (await render(workshop)).Content,
+  })),
+);
+
+// Coerced dates are UTC midnight — pin formatting to UTC to avoid an
+// off-by-one day on builds west of UTC. Two calls sidestep the comma
+// en-GB inserts after the weekday.
+const formatDay = (date: Date) =>
+  `${date.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })} ${date.toLocaleDateString(
+    "en-GB",
+    { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
+  )}`;
+const formatMonth = (date: Date) =>
+  date.toLocaleDateString("en-GB", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 ---
 
 <section id="workshops" class="section alt">
@@ -19,55 +52,130 @@ const eventbriteUrl =
       title="Workshops & talks"
       intro="Practical, supportive sessions for parents, nurseries and organisations — designed to help you feel confident in real-life situations, from everyday concerns to emergencies. Especially helpful for first-time parents."
     />
-    <div class="layout">
-      <article class="session-card">
-        <span class="badge">Next session</span>
-        <h3>First Aid for Babies</h3>
-        <p class="when-where">
-          <strong>Sunday 12 July 2026</strong> · 2:00–4:30pm<br />
-          Dockland Settlements, London E14 3PS
-        </p>
-        <p class="details">
-          A hands-on session covering infant basic life support and what to do
-          in an emergency. Group or 1:1 sessions available.
-        </p>
-        <CallToAction
-          href={eventbriteUrl}
-          target="_blank"
-          rel="noopener"
-          size="small"
-        >
-          Book on Eventbrite
-        </CallToAction>
-      </article>
-      <ul class="quotes">
-        {
-          quotes.map((quote) => (
+
+    {
+      upcomingCards.length > 0 ? (
+        <ul class="workshop-grid">
+          {upcomingCards.map(({ workshop, badge, Content }) => (
             <li>
-              <Testimonial testimonial={quote} />
+              <article class="session-card">
+                <span class="badge">{badge}</span>
+                <h3>{workshop.data.title}</h3>
+                <p class="when-where">
+                  <strong>{formatDay(workshop.data.date)}</strong>
+                  {workshop.data.time && ` · ${workshop.data.time}`}
+                  <br />
+                  {workshop.data.location}
+                </p>
+                <div class="details">
+                  <Content />
+                </div>
+                <CallToAction
+                  href={workshop.data.url ?? "#book"}
+                  target={workshop.data.url ? "_blank" : undefined}
+                  rel={workshop.data.url ? "noopener" : undefined}
+                  bookTopic={workshop.data.url ? undefined : "Workshop enquiry"}
+                  size="small"
+                >
+                  Reserve a place <span aria-hidden="true">→</span>
+                  <span class="sr-only">for {workshop.data.title}</span>
+                </CallToAction>
+              </article>
             </li>
-          ))
-        }
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-state">
+          <h3>No dates in the calendar right now</h3>
+          <p>
+            New workshops are announced regularly. Register your interest and
+            I'll be in touch the moment the next session opens — or ask about
+            arranging a private session for your own group.
+          </p>
+          <CallToAction href="#book" bookTopic="Workshop enquiry">
+            Register your interest →
+          </CallToAction>
+        </div>
+      )
+    }
+
+    <ul class="quotes-grid">
+      {
+        quotes.map((quote) => (
+          <li>
+            <Testimonial testimonial={quote} compact />
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      past.length > 0 && (
+        <>
+          <h3 class="past-heading">Past workshops</h3>
+          <ul class="past-grid">
+            {past.map((workshop) => {
+              const Card = workshop.data.url ? "a" : "article";
+              return (
+                <li>
+                  <Card
+                    class="past-card"
+                    href={workshop.data.url}
+                    target={workshop.data.url ? "_blank" : undefined}
+                    rel={workshop.data.url ? "noopener" : undefined}
+                  >
+                    <h4>{workshop.data.title}</h4>
+                    <p>
+                      {formatMonth(workshop.data.date)} ·{" "}
+                      {workshop.data.location}
+                    </p>
+                  </Card>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )
+    }
+
+    <div class="group-banner">
+      <div class="banner-text">
+        <h3>Want a workshop for your group?</h3>
+        <p>
+          I run tailored sessions and talks for nurseries, workplaces and parent
+          groups — from infant first aid to newborn care. Tell me what you have
+          in mind and I'll build something around it.
+        </p>
+      </div>
+      <CallToAction variant="white" href="#book" bookTopic="Workshop enquiry">
+        Enquire about a workshop
+      </CallToAction>
     </div>
   </div>
 </section>
 
 <style>
-  .layout {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    gap: 1.5rem;
+  /* auto-fill (not auto-fit) so a lone session card keeps a column's width
+     instead of stretching across the whole row. */
+  .workshop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+    gap: 1.25rem;
+    margin: 0 0 1.5rem;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+  }
+
+  .workshop-grid > li {
+    display: grid;
   }
 
   .session-card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1 1 380px;
-    min-width: 300px;
-    padding: clamp(1.625rem, 3.2vw, 2.375rem);
+    padding: clamp(1.5rem, 2.6vw, 2rem);
     background-color: var(--aqua-tint);
     border: 1px solid #d7e8e4;
     border-radius: var(--radius);
@@ -75,26 +183,26 @@ const eventbriteUrl =
 
   .badge {
     padding: 0.375rem 0.8125rem;
-    margin-bottom: 1.125rem;
+    margin-bottom: 1rem;
     background-color: var(--accent-regular);
     border-radius: 999rem;
     color: var(--gray-999);
-    font-size: 0.75rem;
+    font-size: 0.7188rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  h3 {
-    font-size: clamp(1.5rem, 2.6vw, 1.875rem);
-    margin-bottom: 0.875rem;
+  .session-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 0.75rem;
   }
 
   .when-where {
-    font-size: 1rem;
-    line-height: 1.9;
+    font-size: 0.9375rem;
+    line-height: 1.7;
     color: #3a4a46;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .when-where strong {
@@ -103,21 +211,133 @@ const eventbriteUrl =
 
   .details {
     flex: 1;
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.375rem;
   }
 
-  .quotes {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .details :global(p) {
+    margin: 0;
+    font-size: 0.9063rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .details :global(p + p) {
+    margin-top: 0.5em;
+  }
+
+  .empty-state {
+    padding: clamp(1.75rem, 3.4vw, 2.75rem);
+    margin-bottom: 1.5rem;
+    background-color: var(--aqua-tint);
+    border: 1px dashed var(--accent-regular);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .empty-state h3 {
+    font-size: 1.375rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .empty-state p {
+    max-width: 42em;
+    margin: 0 auto 1.25rem;
+    font-size: 0.9688rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 1rem;
-    flex: 1 1 300px;
-    min-width: 260px;
+    margin: 0 0 3rem;
+    width: 100%;
     list-style: none;
     padding: 0;
-    margin: 0;
+  }
+
+  .quotes-grid > li {
+    display: grid;
+  }
+
+  .past-heading {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    margin-bottom: 1.125rem;
+  }
+
+  /* auto-fill again: two past cards stay compact instead of stretching. */
+  .past-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+    gap: 0.875rem;
+    margin: 0 0 3rem;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+  }
+
+  .past-grid > li {
+    display: grid;
+  }
+
+  .past-card {
+    display: block;
+    padding: 1.125rem 1.25rem;
+    background-color: var(--card-tint);
+    border: 1px solid var(--border-soft);
+
+    /* Deliberately tighter than --radius, per the prototype. */
+    border-radius: 14px;
+  }
+
+  a.past-card {
+    text-decoration: none;
+    transition: box-shadow var(--theme-transition);
+  }
+
+  a.past-card:hover,
+  a.past-card:focus-visible {
+    box-shadow: 0 10px 22px rgb(31 58 52 / 8%);
+  }
+
+  .past-card h4 {
+    font-size: 1rem;
+    margin-bottom: 0.3125rem;
+  }
+
+  .past-card p {
+    font-size: 0.8438rem;
+    color: var(--text-muted);
+  }
+
+  .group-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(1.625rem, 3.4vw, 2.5rem);
+    background-color: var(--accent-deep);
+    border-radius: var(--radius);
+    color: var(--gray-999);
+  }
+
+  .banner-text {
+    flex: 1 1 420px;
+    min-width: 280px;
+  }
+
+  .banner-text h3 {
+    font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+    margin-bottom: 0.5rem;
+    color: var(--gray-999);
+  }
+
+  .banner-text p {
+    max-width: 46em;
+    font-size: 0.9688rem;
+    line-height: 1.6;
+    color: rgb(255 255 255 / 85%);
   }
 </style>
